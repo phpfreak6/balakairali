@@ -23,7 +23,7 @@
                                 You can now login to view the dashboard through the following link:
                                 <br>
                                 <br>
-                                 {{ url('/admin') }}
+                                {{ url('/admin') }}
                                 <br>
                                 <br>
                                 Login Credentials
