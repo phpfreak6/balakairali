@@ -168,9 +168,9 @@ border-radius:4px; position:absolute; top:0; left:0;}
 .PoweredBy {
     bottom: 0px !important;
 }
-html, body.LoginPageBody {
+/*html, body.LoginPageBody {
     height: auto !important;
-}
+}*/
 .LoginPageContent {
     padding-top: 48px;
 }
