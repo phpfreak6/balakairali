@@ -98,7 +98,7 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
 
 // Teachers Resource
     Route::get('teachers-resource', [TeacherResourceController::class, 'index'])->name('resourceIndex');
-    Route::get('teacher-resources/delete-resource/$resource->id', [TeacherResourceController::class, 'deleteResource'])->name('resourceIndex');
+    Route::get('teacher-resources/delete-resource/{id}', [TeacherResourceController::class, 'deleteResource']);
     Route::post('uploads', [TeacherResourceController::class, 'upload'])->name('upload');
     Route::post('fetch-resources', [TeacherResourceController::class, 'index'])->name('resources');
 

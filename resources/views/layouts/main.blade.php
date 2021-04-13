@@ -10,7 +10,6 @@
             <div class="main-content">
                 <div class="main-content-inner">
                     <div class="page-content">
-                       
                         @include('templates/flash_messages')
                         <div class="page-header">
                             <h1>
@@ -35,6 +34,5 @@
         </form>
         @include('templates/footer_includes')
         @yield('scripts')
-       
     </body>
 </html>

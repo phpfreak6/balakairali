@@ -2,7 +2,7 @@
 <div id="sidebar" class="sidebar responsive">
 
     <ul class="nav nav-list">
-       
+
         <li class="{{ request()->is('admin') ? 'active' : '' }}">
             <a href="<?= url('admin') ?>">
                 <i class="menu-icon glyphicon glyphicon-star"></i>
@@ -16,7 +16,7 @@
                 Manage Centres
             </a>
         </li>
-        
+
         <li class="{{ (request()->is('admin/classes') || request()->is('admin/classes/*') || request()->is('admin/class/*')) ? 'active' : '' }}">
             <a href="{{ route('admin.classes') }}">
                 <i class="menu-icon glyphicon-th-list glyphicon"></i>
@@ -32,7 +32,7 @@
             </a>
         </li>
         @endadmin
-        
+
         <li class="{{ (request()->is('admin/students') || request()->is('admin/students/*') || request()->is('admin/student/*')) ? 'active' : '' }}">
             <a href="{{ route('admin.students') }}">
                 <i class="menu-icon fa fa-users"></i>
@@ -45,14 +45,14 @@
                 Sign-in/Sign-out Kids
             </a>
         </li>
-        
+
         <li class="{{ (request()->is('admin/signin-signout') || request()->is('admin/signin-signout/*')) ? 'active' : '' }}">
             <a href="{{ route('admin.signinSignout') }}">
                 <i class="menu-icon fa fa-info-circle"></i>
                 Sign-in/Sign-out Record
             </a>
         </li>
-        
+
         <li class="{{ (request()->is('admin/attendance')) ? 'active' : '' }}">
             <a href="{{ route('admin.attendance') }}">
                 <i class="menu-icon glyphicon glyphicon-book"></i>
@@ -111,6 +111,6 @@
                 Settings
             </a>
         </li>
-       @endadmin
+        @endadmin
     </ul>
 </div>

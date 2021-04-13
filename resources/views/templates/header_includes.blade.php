@@ -1,6 +1,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8">
-<title>Bala Kairali</title>
+<title><?= $title ?? 'Balakairali' ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon" href="<?= url('assets/images/favicon.png') ?>" type="image/x-icon" />
@@ -16,6 +16,6 @@
 <link rel="stylesheet" href="<?= url('assets/theme/plugins/toastr/toastr.css') ?>">
 <!-- <script src="<?= url('assets/js/common.js') ?>"></script> -->
 <script>
-    const URL = '<?= url('/') ?>';
-    const _TOKEN = '<?= csrf_token() ?>';
+const URL = '<?= url('/') ?>';
+const _TOKEN = '<?= csrf_token() ?>';
 </script>

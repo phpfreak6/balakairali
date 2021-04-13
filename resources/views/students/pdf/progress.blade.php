@@ -6,7 +6,7 @@
             <table style="margin:0 auto;border-spacing: 0;font-family: Helvetica Neue,sans-serif;" width="100%" cellspacing="0">
                 <tr>
                     <td colspan="6" style="text-align:center;padding-bottom: 10px;">			
-                        <p style="font-family: sans-serif; font-size: 18px; margin-bottom: 0px; margin-top: 0;"><strong>BALA KAIRALI</strong></p>
+                        <p style="font-family: sans-serif; font-size: 18px; margin-bottom: 0px; margin-top: 0;"><strong>Balakairali</strong></p>
                     </td>	
                 </tr>
             </table>
