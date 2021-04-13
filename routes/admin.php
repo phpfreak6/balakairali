@@ -33,6 +33,7 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     //Teachers
     Route::get('teachers', [TeachersController::class, 'index'])->name('teachers');
     Route::post('teachers-list', [TeachersController::class, 'index'])->name('teachers-list');
+    Route::post('teachers/deleteTeacher', [TeachersController::class, 'deleteTeacher']);
     Route::get('teacher/create', [TeachersController::class, 'create'])->name('teachers.create');
     Route::post('teacher/store', [TeachersController::class, 'store'])->name('teachers.store');
     Route::get('teacher/edit/{id}', [TeachersController::class, 'edit'])->name('teachers.edit');

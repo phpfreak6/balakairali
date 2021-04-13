@@ -22,9 +22,12 @@ use DB;
 
 class StudentsController extends Controller {
 
-    public function index(Request $request) {
+    function index(Request $request) {
         if ($request->ajax()) {
             $query = User::whereRole(User::STUDENT);
+            if (in_array($request->status, [STATUS_INACTIVE, STATUS_ACTIVE])) {
+                $query->where('status', '=', $request->status);
+            }
             $class = (!isset($request->classe) || empty($request->classe)) ? '' : $request->classe;
             if (!empty($class) && empty($request->centre)) {
                 $class = $request->classe;
@@ -68,7 +71,10 @@ class StudentsController extends Controller {
                             })
                             ->addColumn('actions', function(User $user) {
                                 if (User::hasPermission('editing_teacher')) {
-                                    return '<a class="btn btn-sm btn-primary" href="student/edit/' . $user->id . '"><i class="fa fa-edit"></i></a> <a  class="btn btn-sm btn-primary" href="student/show/' . $user->id . '"><i class="glyphicon glyphicon-eye-open" title="View"></i></a> <!--a  class="btn btn-sm btn-danger" href="student/delete/' . $user->id . '"><i class="fa fa-trash" title="Delete"></i></a--> <button  class="btn btn-sm btn-success markaspaid" data-id="' . $user->id . '">Mark Paid</button> <a  class="btn btn-sm btn-primary" href="student/assign/' . $user->student->p1_mobile . '">Assign</a>';
+                                    return '<a class="btn btn-sm btn-primary" href="student/edit/' . $user->id . '"><i class="fa fa-edit"></i></a> <a  class="btn btn-sm btn-primary" href="student/show/' . $user->id . '"><i class="glyphicon glyphicon-eye-open" title="View"></i></a> '
+                                            . '<a  onclick="return confirm(\'Are you sure you want to delete this student?\')" class="btn btn-sm btn-danger" href="student/delete/' . $user->id . '"><i class="fa fa-trash" title="Delete"></i></a> '
+                                            . '<button  class="btn btn-sm btn-success markaspaid" data-id="' . $user->id . '">Mark Paid</button> '
+                                            . '<a  class="btn btn-sm btn-primary" href="student/assign/' . $user->student->p1_mobile . '">Assign</a>';
                                 } else {
                                     return '<a  class="btn btn-sm btn-primary" href="student/show/' . $user->id . '"><i class="glyphicon glyphicon-eye-open" title="View"></i></a>';
                                 }

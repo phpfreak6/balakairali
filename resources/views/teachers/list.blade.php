@@ -6,25 +6,24 @@ Manage Teachers
 <div class="row">
     <div class="col-xs-12">
         <div class="table-header">
-            
             <div class="row">               
                 <div class="col-sm-2">              
-
-                   <a href="{{ route('admin.teachers.create') }}" class="btn btn-success btn-sm"><i class="glyphicon-plus glyphicon"></i> Add</a>         
+                    <a href="{{ route('admin.teachers.create') }}" class="btn btn-success btn-sm"><i class="glyphicon-plus glyphicon"></i> Add</a>         
                 </div>              
-                             
-                    <div class="col-sm-2">                  
-                        <select id="filter_by_centre" class="form-control input-sm year" name="centre" style="margin-top: 6px;" required="">                      
-                            <option value="" >By Center</option>                     
-                            @foreach($centres as $centre)                       
-                            <option value="{{ $centre->id }}">{{ $centre->name }}</option>                    @endforeach                   
-                        </select>                   
-                    </div>              
-        
-                    <div class="col-sm-2">                   
-                        <button id="by_centre_btn" type="button" class="btn btn-success btn-sm" >Filter</button>                
-                    </div>                  
-                        
+                <div class="col-sm-2">
+                    <select id="filter_by_centre" class="form-control input-sm year" name="centre" style="margin-top: 6px;" required="">                      
+                        <option value="">By Center</option>                     
+                        @foreach($centres as $centre)                       
+                        <option value="{{ $centre->id }}">{{ $centre->name }}</option>       
+                        @endforeach                   
+                    </select>                   
+                </div> 
+                <div class="col-sm-2">
+                    <?= Form::select('status', ['' => 'By Status', '0' => 'Inactive', '1' => 'Active'], '', ['style' => 'margin-top: 6px;', 'class' => 'input-sm form-control', 'id' => 'status']) ?>
+                </div>
+                <div class="col-sm-2">                   
+                    <button id="by_centre_btn" type="button" class="btn btn-success btn-sm" >Filter</button>                
+                </div>                  
             </div>
         </div>
         <div class="responsive_table_main">

@@ -5,42 +5,48 @@ Dashboard
 @section('content')
 <div class="row">
     <div class="col-sm-12 infobox-container">
-        <div class="infobox infobox-green">
-            <div class="infobox-icon">
-                <i class="ace-icon fa fa-university"></i>
+        <a href="<?= route('admin.centres') ?>">
+            <div class="infobox infobox-green">
+                <div class="infobox-icon">
+                    <i class="ace-icon fa fa-university"></i>
+                </div>
+                <div class="infobox-data">
+                    <span class="infobox-data-number">{{ \App\Models\Centre::count() }}</span>
+                    <div class="infobox-content">Total Centres</div>
+                </div>
             </div>
-            <div class="infobox-data">
-                <span class="infobox-data-number">{{ \App\Models\Centre::count() }}</span>
-                <div class="infobox-content">Total Centres</div>
+        </a>
+        <a href="<?= route('admin.teachers') ?>">
+            <div class="infobox infobox-orange2">
+                <div class="infobox-icon">
+                    <i class="ace-icon fa fa-user"></i>
+                </div>
+                <div class="infobox-data">
+                    <span class="infobox-data-number">{{ \App\Models\User::totalTeacher() }}</span>
+                    <div class="infobox-content">Total Teachers</div>
+                </div>
             </div>
-        </div>
-        <div class="infobox infobox-orange2">
-            <div class="infobox-icon">
-                <i class="ace-icon fa fa-user"></i>
+        </a>
+        <a href="<?= route('admin.students') ?>">
+            <div class="infobox infobox-purple">
+                <div class="infobox-icon">
+                    <i class="ace-icon fa fa-graduation-cap"></i>
+                </div>
+                <div class="infobox-data">
+                    <span class="infobox-data-number">{{ \App\Models\User::totalStudent() }}</span>
+                    <div class="infobox-content">Total Students</div>
+                </div>
             </div>
-            <div class="infobox-data">
-                <span class="infobox-data-number">{{ \App\Models\User::totalTeacher() }}</span>
-                <div class="infobox-content">Total Teachers</div>
-            </div>
-        </div>
-        <div class="infobox infobox-purple">
-            <div class="infobox-icon">
-                <i class="ace-icon fa fa-graduation-cap"></i>
-            </div>
-            <div class="infobox-data">
-                <span class="infobox-data-number">{{ \App\Models\User::totalStudent() }}</span>
-                <div class="infobox-content">Total Students</div>
-            </div>
-        </div>
-        <div class="infobox infobox-blue">
-            <div class="infobox-icon">
-                <i class="ace-icon fa fa-dollar"></i>
-            </div>
-            <div class="infobox-data">
-                <span class="infobox-data-number">{{ \App\Models\User::notPaidTotalCount() }}</span>
-                <div class="infobox-content">Not Paid Last Term</div>
-            </div>
-        </div>
+        </a>
+        <!--        <div class="infobox infobox-blue">
+                    <div class="infobox-icon">
+                        <i class="ace-icon fa fa-dollar"></i>
+                    </div>
+                    <div class="infobox-data">
+                        <span class="infobox-data-number">{{ \App\Models\User::notPaidTotalCount() }}</span>
+                        <div class="infobox-content">Not Paid Last Term</div>
+                    </div>
+                </div>-->
     </div>
 </div>
 <div class="space-10" ></div>

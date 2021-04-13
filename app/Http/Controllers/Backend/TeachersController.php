@@ -24,6 +24,9 @@ class TeachersController extends Controller {
     public function index(Request $request) {
         if ($request->ajax()) {
             $query = User::whereRole(User::TEACHER);
+            if (in_array($request->status, [STATUS_INACTIVE, STATUS_ACTIVE])) {
+                $query->where('status', '=', $request->status);
+            }
             if (!empty($request->centre)) {
                 $centre = $request->centre;
                 $query->whereHas('centres', function($q) use($centre) {
@@ -45,7 +48,9 @@ class TeachersController extends Controller {
                                 }
                             })
                             ->addColumn('actions', function(User $user) {
-                                return '<a class="btn btn-sm btn-primary" href="teacher/edit/' . $user->id . '"><i class="fa fa-edit"></i></a> <a  class="btn btn-sm btn-primary" href="teacher/show/' . $user->id . '"><i class="glyphicon glyphicon-eye-open" title="View"></i></a>';
+                                return '<a class="btn btn-sm btn-primary" href="teacher/edit/' . $user->id . '"><i class="fa fa-edit"></i></a> '
+                                        . '<a  class="btn btn-sm btn-primary" href="teacher/show/' . $user->id . '"><i class="glyphicon glyphicon-eye-open" title="View"></i></a>'
+                                        . '&nbsp;<button  type="button" onclick="deleteTeacher(' . $user->id . ')" class="btn btn-sm btn-danger"><i class="fa fa-trash-o"></i></button>';
                             })->addIndexColumn()->rawColumns(['actions', 'status'])->make(true);
         }
         $centres = Centre::get();
@@ -144,6 +149,16 @@ class TeachersController extends Controller {
                 $certi->save();
             }
         }
+    }
+
+    function deleteTeacher(Request $request) {
+        if (!empty($request->id)) {
+            User::where('id', '=', $request->id)->delete();
+            echo '1';
+            die;
+        }
+        echo '0';
+        die;
     }
 
 }

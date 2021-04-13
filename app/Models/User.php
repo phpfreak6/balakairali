@@ -122,10 +122,7 @@ class User extends Authenticatable {
     /* No paid for last term total count */
 
     public static function notPaidTotalCount() {
-
-
         if (date('Y-m-d') > '2021-03-31') {
-
             return self::whereDoesntHave('fees', function ($q) {
                         $q->where('pay_year', date("Y"));
                         $q->where('pay_term', Quarter::previousTerm());
