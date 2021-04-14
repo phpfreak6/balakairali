@@ -66,7 +66,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
             $('#parentMobile').text('').html('<div class="spinner-border"></div>');
             if ($('#number').val() == '') {
                 $('.InputDiv').css('border', '1px solid #D22935');
-                $('.mobile_error').html('<center><label class = "text-danger">Please enter mobile number.</label></center>');
+                $('.mobile_error').html('<label class="text-danger">Please Enter Mobile Number.</label>');
                 $('#parentMobile').prop('disabled', false);
                 $('#parentMobile').text('Submit');
                 return false;
@@ -83,7 +83,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
                         $('.InputDiv').css('border', '1px solid #D22935');
-                        $('.mobile_error').html('<center><label class = "text-danger">Mobile number not found.</label></center>');
+                        $('.mobile_error').html('<label class="text-danger">Mobile Number Not Found.</label>');
                         return false;
                     } else if (response == 'time') {
                         toastr.options = {"closeButton": true};
@@ -98,9 +98,10 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     } else {
                         window.location.reload();
                     }
-                },
+                }
             });
         });
+
         $('#pinLogin').on('click', function (e) {
             $('#pinLogin').prop('disabled', true);
             $('#pinLogin').text('').html('<div class="spinner-border"></div>');
@@ -219,6 +220,12 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
             });
         });
         $('#number').mask('9999999999', {placeholder: ''});
+    });
+
+    $(function () {
+        $(this).bind("contextmenu", function (e) {
+            e.preventDefault();
+        });
     });
 </script>
 @endsection

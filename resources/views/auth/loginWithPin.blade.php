@@ -25,7 +25,6 @@
             <div class="col-md-12 d-flex justify-content-center align-items-center">
                 <div class="LoginLogo"><img src="{{ asset('assets/images/front/Logo.png') }}" alt="" /></div>
                 <div class="FormDiv">
-                    <h2>Student Sign In/Out</h2>
                     <form method="post" action="{{ route('slogin') }}">
                         @csrf
                         <div class="InputDivWrap studentLogin ">
