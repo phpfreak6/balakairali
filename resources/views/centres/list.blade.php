@@ -24,9 +24,7 @@ Manage Centres
                         <th class="center">ID</th>
                         <th class="center">Name</th>
                         <th class="center">Address</th>
-                       
                         <th class="center">Actions</th>
-                       
                     </tr>
                 </thead>
                 <tbody></tbody>

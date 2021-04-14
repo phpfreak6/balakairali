@@ -11,10 +11,7 @@
                         <div class="login-container">
                             <div class="space-30"></div>
                             <div class="center">
-                                <h1>
-                                    <!-- <img style="margin: 0 auto;" class="img img-responsive" src="<?= url('assets/images/login_logo.png') ?>"> -->
-                                    LOGIN
-                                </h1>
+                                <h1>LOGIN</h1>
                             </div>
                             <div class="space-6"></div>
                             <div class="position-relative">
@@ -27,7 +24,7 @@
                                                 <fieldset>
                                                     <label class="block clearfix">
                                                         <span class="block input-icon input-icon-right">
-                                                            <input type="text" name="email" class="form-control" placeholder="Username" />
+                                                            <input type="text" name="email" class="form-control" placeholder="Username">
                                                             <i class="ace-icon fa fa-user"></i>
                                                         </span>
                                                     </label>
