@@ -26,7 +26,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         <div class="InputDivWrap studentLogin">
                             <div class="InputDiv">
                                 <i><img src="{{ asset('assets/images/front/Mobile.svg') }}" alt="" /></i>
-                                <input type="number" class="form-control" name="mobile" id="number" placeholder="Enter Parent’s Mobile Number">
+                                <input autocomplete="off" type="text" class="form-control" name="mobile" id="number" placeholder="Enter Parent’s Mobile Number">
                             </div>
                             <span class="mobile_error"></span>
                         </div>
@@ -100,9 +100,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     }
                 },
             });
-
         });
-
         $('#pinLogin').on('click', function (e) {
             $('#pinLogin').prop('disabled', true);
             $('#pinLogin').text('').html('<div class="spinner-border"></div>');
@@ -116,7 +114,6 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 $('.InputDiv').css('border', '1px solid #E4E3E3');
                 $('.mobile_error').html('');
             }
-
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 type: 'POST',
@@ -138,7 +135,6 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 },
             });
         });
-
         $(document).on('click', '.student_btn', function () {
             var crypt_data = $(this).data('login');
             var content = $(this).text();
@@ -181,11 +177,9 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 },
             });
         });
-
         $(document).on('click', '.logout_btn', function () {
             $('#logoutform').submit();
         });
-
         $('.search-kids').on('click', function (e) {
             var $parent = $('#parent_number').val();
             $.ajax({
@@ -203,7 +197,6 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 }
             });
         });
-
         $(document).on('click', '.student_action_btn', function () {
             var student_id = $(this).data('login');
             var action = $(this).text();
@@ -225,6 +218,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 }
             });
         });
+        $('#number').mask('9999999999', {placeholder: ''});
     });
 </script>
 @endsection

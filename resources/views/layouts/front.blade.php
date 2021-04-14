@@ -12,6 +12,7 @@
         <link rel="stylesheet" href="<?= url('assets/theme/plugins/toastr/toastr.css') ?>">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
         <script src="{{ asset('assets/js/front/jquery-3.3.1.min.js') }}"></script>
+        <script src="{{ asset('assets/theme/js/jquery.maskedinput.js') }}"></script>
         <title>Bala Kairali</title>
         <script>
 var AUTHENTICATION_TOKEN = '<?= csrf_token() ?>';
