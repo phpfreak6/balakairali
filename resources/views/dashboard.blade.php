@@ -38,15 +38,6 @@ Dashboard
                 </div>
             </div>
         </a>
-        <!--        <div class="infobox infobox-blue">
-                    <div class="infobox-icon">
-                        <i class="ace-icon fa fa-dollar"></i>
-                    </div>
-                    <div class="infobox-data">
-                        <span class="infobox-data-number">{{ \App\Models\User::notPaidTotalCount() }}</span>
-                        <div class="infobox-content">Not Paid Last Term</div>
-                    </div>
-                </div>-->
     </div>
 </div>
 <div class="space-10" ></div>

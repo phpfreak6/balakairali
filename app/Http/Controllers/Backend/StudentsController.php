@@ -98,7 +98,6 @@ class StudentsController extends Controller {
 
     public function store(StoreStudentRequest $request) {
         $data = $request->all();
-//        $data['password'] = Hash::make($data['password']);
         $data['pin'] = $data['pin'];
         $data['name'] = $data['first_name'] . ' ' . $data['last_name'];
         $user = User::create($data);
