@@ -9,7 +9,6 @@ use App\Models\Quarter;
 use App\Models\Centre;
 use App\Models\Classes as ClassModel;
 use App\Models\User;
-use App\Models\StudentDetail;
 use App\Models\Fee;
 use DataTables;
 use Mail;
@@ -116,9 +115,8 @@ class ReportsController extends Controller
         $dataArr['payment_status'] = $request->payment_status ?? NULL;
         $dataArr['student_status'] = $request->student_status ?? NULL;
         $dataArr['centresDropdownArr'] = getDropdownList(Centre::get(), 'id', 'name');
-        $dataArr['termsDropdownArr'] = getDropdownList(Quarter::get(), 'id', 'name');
+        $dataArr['termsDropdownArr'] = getDropdownList(Quarter::get(), 'id', 'id');
         $dataArr['classesDropdownArr'] = getDropdownList(ClassModel::get(), 'id', 'name');
-        // $dataArr['classes'] = ClassModel::get();
         return view('reports.payment', $dataArr);
     }
 
@@ -198,7 +196,6 @@ class ReportsController extends Controller
                 !empty($request->centre) ? $unpaid_students_query->where('centres.id', '=', $request->centre) : '';
                 !empty($request->classes) ? $unpaid_students_query->where('classes.id', '=', $request->classes) : '';
                 $resultArr = $unpaid_students_query->select('users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')->get();
-                // pr($resultArr);
                 break;
 
             default:
