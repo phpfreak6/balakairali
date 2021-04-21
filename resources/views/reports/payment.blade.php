@@ -84,6 +84,9 @@ Manage Payments
                     student_status: student_status
                 }
             },
+            "order": [
+                [0, "desc"]
+            ],
             columns: [{
                     'className': 'text-center',
                     data: 'payment_date'

@@ -213,7 +213,7 @@ class ReportsController extends Controller
                 !empty($request->pay_term) ? $query->where('fees.pay_term', '=', $request->pay_term) : '';
                 !empty($request->pay_year) ? $query->where('fees.pay_year', '=', $request->pay_year) : '';
                 $resultArr = $query->select('fees.*', 'users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')
-                    ->orderBy('fees.created_at', 'desc')
+                    ->orderBy('fees.created_at', 'DESC')
                     ->get();
                 break;
         }
