@@ -16,6 +16,7 @@ use App\Http\Controllers\Backend\AssignController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
 /* ADMIN ROUTES */
+
 Route::get('admin/login', [LoginController::class, 'index'])->name('admin.login.form');
 Route::post('admin/login', [LoginController::class, 'login'])->name('admin.login');
 Route::post('password/reset', [ForgotPasswordController::class, 'sendLink'])->name('admin.reset');
@@ -86,8 +87,8 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     //Reports
 
     Route::match(['get', 'post'], 'attendance/report', [ReportsController::class, 'attendanceReport'])->name('attendanceReport');
-    Route::match(['get', 'post'], 'payment/report', [ReportsController::class, 'paymentReport'])->name('paymentReport');
-
+    Route::match(['get', 'post'], 'payment-reports/index', [ReportsController::class, 'paymentReport'])->name('paymentReport');
+    Route::post('payment-reports/getPaymentReportsDatatable', [ReportsController::class, 'getPaymentReportsDatatable']);
     Route::get('payment/invoice/{id}', [ReportsController::class, 'generateInvoice'])->name('generateInvoice');
     Route::get('payment/mail-invoice/{id}', [ReportsController::class, 'mailInvoice'])->name('mailInvoice');
     Route::post('attendance/totalClasses', [ReportsController::class, 'totalClasses']);
@@ -97,7 +98,7 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     Route::get('signin-signout-kids', [SigninSignoutController::class, 'signinSignout'])->name('signinSignoutKids');
     Route::get('load-kids-signin', [SigninSignoutController::class, 'loadForSigninOut']);
 
-// Teachers Resource
+    // Teachers Resource
     Route::get('teachers-resource', [TeacherResourceController::class, 'index'])->name('resourceIndex');
     Route::get('teacher-resources/delete-resource/{id}', [TeacherResourceController::class, 'deleteResource']);
     Route::post('uploads', [TeacherResourceController::class, 'upload'])->name('upload');
@@ -118,4 +119,3 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     Route::post('kids-assign', [AssignController::class, 'assign'])->name('kids-assign');
     Route::post('kids-unassign', [AssignController::class, 'unassign'])->name('kids-unassign');
 });
-?>

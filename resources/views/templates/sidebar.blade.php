@@ -56,6 +56,12 @@
                 Teachers Resource
             </a>
         </li>
+        <li class="{{ (request()->is('admin/payment-reports/index')) ? 'active' : '' }}">
+            <a href="{{ route('admin.paymentReport') }}">
+                <i class="menu-icon fa fa-usd"></i>
+                Manage Payments
+            </a>
+        </li>
         <li class="{{ (request()->is('admin/attendance/report') || request()->is('admin/payment/report')) ? 'open active' : '' }}">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-file-o"></i>
@@ -65,7 +71,7 @@
                 <b class="arrow fa fa-angle-down"></b>
             </a>
             <b class="arrow"></b>
-            <ul class="submenu {{ (request()->is('admin/attendance/report') || request()->is('admin/payment/report')) ? 'nav-show' : '' }}" >
+            <ul class="submenu {{ (request()->is('admin/attendance/report') || request()->is('admin/payment/report')) ? 'nav-show' : '' }}">
                 <li class="">
                     <a href="{{ route('admin.attendanceReport') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
@@ -73,13 +79,13 @@
                     </a>
                     <b class="arrow"></b>
                 </li>
-                <li class="">
+                <!-- <li class="">
                     <a href="{{ route('admin.paymentReport') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Payment Report
                     </a>
                     <b class="arrow"></b>
-                </li>
+                </li> -->
             </ul>
         </li>
         @admin

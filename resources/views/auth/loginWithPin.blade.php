@@ -1,15 +1,19 @@
 @extends('layouts.front')
 @section('content')
 <style>
-    .login-color{
+    .login-color {
         color: green;
     }
-    html, body.LoginPageBody {
+
+    html,
+    body.LoginPageBody {
         height: 100% !important;
     }
+
     .FormDiv form .ResetNow {
         margin-bottom: 6px;
     }
+
     .LoginPageBody .LoginPageContent {
         padding-top: 0px;
     }
@@ -48,25 +52,49 @@
                         <div class="keypad_div" style="{{ (count($students) > 0) ? 'display: none' : '' }}">
                             <div class="Digit">
                                 <ul>
-                                    <li><div class="DigitBox hover-overlay" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '1';">1</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '2';">2</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '3';">3</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '4';">4</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '5';">5</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '6';">6</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '7';">7</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '8';">8</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '9';">9</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value.slice(0, -1);">DEL</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '0';">0</div></li>
-                                    <li><div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div></li>
+                                    <li>
+                                        <div class="DigitBox hover-overlay" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '1';">1</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '2';">2</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '3';">3</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '4';">4</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '5';">5</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '6';">6</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '7';">7</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '8';">8</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '9';">9</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value.slice(0, -1);">DEL</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '0';">0</div>
+                                    </li>
+                                    <li>
+                                        <div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div>
+                                    </li>
                                 </ul>
                             </div>
                             <div class="d-flex ResetNow">
                                 @if(\App\Models\User::pinCreatedOrNot() == false)
-                                <p>Don’t have a pin? <br/><a href="{{ route('createPin') }}">Create one</a></p>
+                                <p>Don’t have a pin? <br /><a href="{{ route('createPin') }}">Create one</a></p>
                                 @endif
-                                <p class="ml-auto">Forgot pin? <br/><a href="{{ route('forgotPin') }}">Reset now</a></p>
+                                <p class="ml-auto">Forgot pin? <br /><a href="{{ route('forgotPin') }}">Reset now</a></p>
                             </div>
                             <div class="d-flex align-items-center">
                                 <button type="button" id="pinLogin" class="btn GreyBtn">Find Student/s</button>

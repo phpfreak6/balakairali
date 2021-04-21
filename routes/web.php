@@ -17,24 +17,24 @@ Route::post('findParentMobile', [StudentLoginController::class, 'findParentMobil
         ->name('findParentMobile');
 Route::get('dashboard', [UserController::class, 'dashboard']);
 Route::group(['middleware' => ['student']], function () {
-    Route::get('/signin-signout-student', [StudentLoginController::class, 'studentLogin'])
-            ->name('loginWithPin');
-    Route::post('student-login', [StudentLoginController::class, 'login'])
-            ->name('slogin');
-    Route::get('create-pin', [CreatePinController::class, 'createPin'])
-            ->name('createPin');
-    Route::post('send-otp', [CreatePinController::class, 'sendOtp'])
-            ->name('send_otp');
-    Route::get('confirm-otp', [CreatePinController::class, 'confirmOtp'])
-            ->name('confirmOtp');
-    Route::post('confirm-otp/{token}', [CreatePinController::class, 'matchOtp'])
-            ->name('matchOtp');
-    Route::get('reset-pin/{token}', [CreatePinController::class, 'resetPinForm'])
-            ->name('resetPin');
-    Route::post('reset-pin/{token}', [CreatePinController::class, 'resetPin'])
-            ->name('resetPinPost');
-    Route::get('forgot-pin', [CreatePinController::class, 'createPin'])
-            ->name('forgotPin');
+        Route::get('/signin-signout-student', [StudentLoginController::class, 'studentLogin'])
+                ->name('loginWithPin');
+        Route::post('student-login', [StudentLoginController::class, 'login'])
+                ->name('slogin');
+        Route::get('create-pin', [CreatePinController::class, 'createPin'])
+                ->name('createPin');
+        Route::post('send-otp', [CreatePinController::class, 'sendOtp'])
+                ->name('send_otp');
+        Route::get('confirm-otp', [CreatePinController::class, 'confirmOtp'])
+                ->name('confirmOtp');
+        Route::post('confirm-otp/{token}', [CreatePinController::class, 'matchOtp'])
+                ->name('matchOtp');
+        Route::get('reset-pin/{token}', [CreatePinController::class, 'resetPinForm'])
+                ->name('resetPin');
+        Route::post('reset-pin/{token}', [CreatePinController::class, 'resetPin'])
+                ->name('resetPinPost');
+        Route::get('forgot-pin', [CreatePinController::class, 'createPin'])
+                ->name('forgotPin');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
         ->name('home');

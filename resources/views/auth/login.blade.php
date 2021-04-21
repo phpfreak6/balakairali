@@ -21,7 +21,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     <img src="{{ asset('assets/images/front/Logo.png') }}">
                 </div>
                 <div class="FormDiv">
-                    <form method="post" >
+                    <form method="post">
                         @csrf
                         <div class="InputDivWrap studentLogin">
                             <div class="InputDiv">
@@ -32,18 +32,42 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         </div>
                         <div class="Digit">
                             <ul>
-                                <li><div class="DigitBox hover-overlay" onclick="document.getElementById('number').value = document.getElementById('number').value + '1';">1</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '2';">2</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '3';">3</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '4';">4</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '5';">5</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '6';">6</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '7';">7</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '8';">8</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '9';">9</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value.slice(0, -1);">DEL</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '0';">0</div></li>
-                                <li><div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div></li>
+                                <li>
+                                    <div class="DigitBox hover-overlay" onclick="document.getElementById('number').value = document.getElementById('number').value + '1';">1</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '2';">2</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '3';">3</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '4';">4</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '5';">5</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '6';">6</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '7';">7</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '8';">8</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '9';">9</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value.slice(0, -1);">DEL</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '0';">0</div>
+                                </li>
+                                <li>
+                                    <div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div>
+                                </li>
                             </ul>
                         </div>
                         <div class="d-flex align-items-center">
@@ -59,9 +83,9 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
 @endsection
 @section('scripts')
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         var baseUrl = $('meta[name="base-url"]').attr('content');
-        $('#parentMobile').on('click', function (e) {
+        $('#parentMobile').on('click', function(e) {
             $('#parentMobile').prop('disabled', true);
             $('#parentMobile').text('').html('<div class="spinner-border"></div>');
             if ($('#number').val() == '') {
@@ -77,8 +101,11 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
             $.ajax({
                 type: 'POST',
                 url: baseUrl + '/findParentMobile',
-                data: {'mobile': $('#number').val(), '_token': AUTHENTICATION_TOKEN},
-                success: function (response) {
+                data: {
+                    'mobile': $('#number').val(),
+                    '_token': AUTHENTICATION_TOKEN
+                },
+                success: function(response) {
                     if (response == false) {
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
@@ -86,23 +113,28 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         $('.mobile_error').html('<label class="text-danger">Mobile Number Not Found.</label>');
                         return false;
                     } else if (response == 'time') {
-                        toastr.options = {"closeButton": true};
+                        toastr.options = {
+                            "closeButton": true
+                        };
                         toastr.error("You can't login at this time.");
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
                     } else if (response == 'holiday') {
-                        toastr.options = {"closeButton": true};
+                        toastr.options = {
+                            "closeButton": true
+                        };
                         toastr.warning("You can't login today. Today is holiday.");
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
                     } else {
-                        window.location.reload();
+                        alert('tyagi');
+                        window.location.replace('<?= url('/') ?>');
                     }
                 }
             });
         });
 
-        $('#pinLogin').on('click', function (e) {
+        $('#pinLogin').on('click', function(e) {
             $('#pinLogin').prop('disabled', true);
             $('#pinLogin').text('').html('<div class="spinner-border"></div>');
             if ($('#pin').val() == '') {
@@ -116,11 +148,16 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 $('.mobile_error').html('');
             }
             $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type: 'POST',
                 url: baseUrl + '/findStudent',
-                data: {'mobile': $('#number').val(), 'pin': $('#pin').val()},
-                success: function (response) {
+                data: {
+                    'mobile': $('#number').val(),
+                    'pin': $('#pin').val()
+                },
+                success: function(response) {
                     if (response == false) {
                         $('#pinLogin').prop('disabled', false);
                         $('#pinLogin').text('Find Student/s');
@@ -136,28 +173,42 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 },
             });
         });
-        $(document).on('click', '.student_btn', function () {
+        $(document).on('click', '.student_btn', function() {
             var crypt_data = $(this).data('login');
             var content = $(this).text();
             $.ajax({
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
                 type: 'POST',
                 url: baseUrl + '/student-login',
-                data: {'crypt_data': crypt_data},
-                success: function (response) {
+                data: {
+                    'crypt_data': crypt_data
+                },
+                success: function(response) {
                     if (response.status == 'logged-out') {
-                        toastr.options = {"closeButton": true, "positionClass": "toast-top-center", "timeOut": 3000};
+                        toastr.options = {
+                            "closeButton": true,
+                            "positionClass": "toast-top-center",
+                            "timeOut": 3000
+                        };
                         toastr.success('Student signed out successfully');
                         $('.login_status' + response.id).html('Signed-out - ');
                     }
                     if (response.status == 'inactive') {
-                        toastr.options = {"closeButton": true, "positionClass": "toast-top-center"};
+                        toastr.options = {
+                            "closeButton": true,
+                            "positionClass": "toast-top-center"
+                        };
                         toastr.warning('Selected student account is inactive. Please contact with centre.');
                         return false;
 
                     }
                     if (response.status == 'logout') {
-                        toastr.options = {"closeButton": true, "positionClass": "toast-top-center"};
+                        toastr.options = {
+                            "closeButton": true,
+                            "positionClass": "toast-top-center"
+                        };
                         toastr.warning('Selected student accounts are logged out already or not logged in for today !');
                         return false;
                     }
@@ -165,7 +216,11 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         $('#logoutform').submit();
                     }
                     if (response.text == 'Sign-out') {
-                        toastr.options = {"closeButton": true, "positionClass": "toast-top-center", "timeOut": 3000};
+                        toastr.options = {
+                            "closeButton": true,
+                            "positionClass": "toast-top-center",
+                            "timeOut": 3000
+                        };
                         toastr.success('Student signed-in successfully');
                         $('.login_status' + response.id).html('Signed-in - ');
                     } else {
@@ -178,18 +233,23 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 },
             });
         });
-        $(document).on('click', '.logout_btn', function () {
+        $(document).on('click', '.logout_btn', function() {
             $('#logoutform').submit();
         });
-        $('.search-kids').on('click', function (e) {
+        $('.search-kids').on('click', function(e) {
             var $parent = $('#parent_number').val();
             $.ajax({
                 type: 'GET',
                 url: URL + '/admin/load-kids-signin',
-                data: {'parent_number': $parent},
-                success: function (response) {
+                data: {
+                    'parent_number': $parent
+                },
+                success: function(response) {
                     if (response.status == false) {
-                        toastr.options = {"closeButton": true, "timeOut": 3000};
+                        toastr.options = {
+                            "closeButton": true,
+                            "timeOut": 3000
+                        };
                         toastr.error(response.message);
                         return false;
                     }
@@ -198,32 +258,44 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 }
             });
         });
-        $(document).on('click', '.student_action_btn', function () {
+        $(document).on('click', '.student_action_btn', function() {
             var student_id = $(this).data('login');
             var action = $(this).text();
             $.ajax({
                 type: 'GET',
                 url: URL + '/admin/login-kids',
-                data: {'student_id': student_id, 'action': action},
-                success: function (response) {
+                data: {
+                    'student_id': student_id,
+                    'action': action
+                },
+                success: function(response) {
                     if (response.status == false) {
-                        toastr.options = {"closeButton": true, "timeOut": 3000};
+                        toastr.options = {
+                            "closeButton": true,
+                            "timeOut": 3000
+                        };
                         toastr.error(response.message);
                         return false;
                     }
                     divLoader('#append_kids_list_loader');
-                    toastr.options = {"closeButton": true, "positionClass": "toast-top-center", "timeOut": 3000};
+                    toastr.options = {
+                        "closeButton": true,
+                        "positionClass": "toast-top-center",
+                        "timeOut": 3000
+                    };
                     toastr.success(response.message);
                     $('.status_login' + response.user_id).text(response.html);
                     $('.stdnt' + response.user_id).text(response.btn_text);
                 }
             });
         });
-        $('#number').mask('9999999999', {placeholder: ''});
+        $('#number').mask('9999999999', {
+            placeholder: ''
+        });
     });
 
-    $(function () {
-        $(this).bind("contextmenu", function (e) {
+    $(function() {
+        $(this).bind("contextmenu", function(e) {
             e.preventDefault();
         });
     });
