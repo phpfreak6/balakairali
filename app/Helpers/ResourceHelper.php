@@ -6,27 +6,28 @@ use App\Models\LoginRecord;
 
 if (!function_exists('states')) {
 
-    function states() {
+    function states()
+    {
         return array('New South Wales', 'Queensland', 'Australian Capital Territory', 'Victoria', 'South Australia', 'Western Australia', 'Tasmania', 'Northern Territory');
     }
-
 }
 
 if (!function_exists('pr')) {
 
-    function pr($dataArr, $die = TRUE) {
+    function pr($dataArr, $die = TRUE)
+    {
         echo '<pre>';
         print_r($dataArr);
         if ($die == TRUE) {
             die;
         }
     }
-
 }
 
 if (!function_exists('getDropdownList')) {
 
-    function getDropdownList($dataArr, $key, $value) {
+    function getDropdownList($dataArr, $key, $value)
+    {
         $returnArr = [];
         $returnArr[''] = 'Please Select';
         foreach ($dataArr as $data) {
@@ -34,54 +35,54 @@ if (!function_exists('getDropdownList')) {
         }
         return $returnArr;
     }
-
 }
 
 if (!function_exists('getDropdown')) {
 
-    function getDropdown($dataArr, $key, $value) {
+    function getDropdown($dataArr, $key, $value)
+    {
         $returnArr = [];
         foreach ($dataArr as $data) {
             $returnArr[$data[$key]] = $data[$value];
         }
         return $returnArr;
     }
-
 }
 
 if (!function_exists('encodeId')) {
 
-    function encodeId($id) {
+    function encodeId($id)
+    {
         $hashids = new Hashids('hflc', 10);
         return $hashids->encode($id);
     }
-
 }
 
 if (!function_exists('decodeId')) {
 
-    function decodeId($id) {
+    function decodeId($id)
+    {
         $hashids = new Hashids('hflc', 10);
         if (!empty($hashids->decode($id)[0])) {
             return $hashids->decode($id)[0];
         }
         return NULL;
     }
-
 }
 
 if (!function_exists('getDatatableResources')) {
 
-    function getDatatableResources() {
+    function getDatatableResources()
+    {
         return '<script src="' . url('assets/theme/js/dataTables/jquery.dataTables.js') . '"></script>
 		<script src="' . url('assets/theme/js/dataTables/jquery.dataTables.bootstrap.js') . '"></script>';
     }
-
 }
 
 if (!function_exists('getTotalDaysTakenDropdown')) {
 
-    function getTotalDaysTakenDropdown() {
+    function getTotalDaysTakenDropdown()
+    {
         $returnListArr = [];
         $returnListArr[''] = 'Please Select';
         $times = 100;
@@ -93,28 +94,28 @@ if (!function_exists('getTotalDaysTakenDropdown')) {
         }
         return $returnListArr;
     }
-
 }
 
 if (!function_exists('invoiceId')) {
 
-    function invoiceId($id) {
+    function invoiceId($id)
+    {
         return 'BKINV000' . $id;
     }
-
 }
 
 if (!function_exists('encryptID')) {
 
-    function encryptID($id) {
+    function encryptID($id)
+    {
         return Crypt::encryptString($id);
     }
-
 }
 
 if (!function_exists('loginOrLogout')) {
 
-    function loginOrLogout($userid) {
+    function loginOrLogout($userid)
+    {
         $record = LoginRecord::where('user_id', $userid)->whereDate('login_time', date('Y-m-d'))->first();
         if (!empty($record->logout_time)) {
             return 'Sign-in';
@@ -124,13 +125,13 @@ if (!function_exists('loginOrLogout')) {
             return 'Sign-out';
         }
     }
-
 }
 
 
 if (!function_exists('loginOrLogoutStatus')) {
 
-    function loginOrLogoutStatus($userid) {
+    function loginOrLogoutStatus($userid)
+    {
         $record = LoginRecord::where('user_id', $userid)->whereDate('login_time', date('Y-m-d'))->first();
         if (!empty($record->logout_time)) {
             return '';
@@ -140,13 +141,13 @@ if (!function_exists('loginOrLogoutStatus')) {
             return 'Signed-in - ';
         }
     }
-
 }
 
 
 if (!function_exists('draw_calendar')) {
 
-    function draw_calendar($month, $year, $holidays, $selCounter) {
+    function draw_calendar($month, $year, $holidays, $selCounter)
+    {
         if (!empty($holidays)) {
             $aryHolidays = explode(',', $holidays);
         }
@@ -164,12 +165,12 @@ if (!function_exists('draw_calendar')) {
         /* row for week one */
         $calendar .= '<tr class="calendar-row">';
         /* print "blank" days until the first of the current week */
-        for ($x = 0; $x < $running_day; $x++):
+        for ($x = 0; $x < $running_day; $x++) :
             $calendar .= '<td class="calendar-day-np"> </td>';
             $days_in_this_week++;
         endfor;
         /* keep going with days.... */
-        for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
+        for ($list_day = 1; $list_day <= $days_in_month; $list_day++) :
             $dateString = $year . '-' . $month . '-' . (($list_day < 10) ? '0' . $list_day : $list_day);
             $isHoliday = '';
             $isSunday = '';
@@ -185,9 +186,9 @@ if (!function_exists('draw_calendar')) {
             /** QUERY THE DATABASE FOR AN ENTRY FOR THIS DAY !!  IF MATCHES FOUND, PRINT THEM !! * */
             $calendar .= str_repeat('<p> </p>', 2);
             $calendar .= '</td>';
-            if ($running_day == 6):
+            if ($running_day == 6) :
                 $calendar .= '</tr>';
-                if (($day_counter + 1) != $days_in_month):
+                if (($day_counter + 1) != $days_in_month) :
                     $calendar .= '<tr class="calendar-row">';
                 endif;
                 $running_day = -1;
@@ -198,8 +199,8 @@ if (!function_exists('draw_calendar')) {
             $day_counter++;
         endfor;
         /* finish the rest of the days in the week */
-        if ($days_in_this_week < 8):
-            for ($x = 1; $x <= (8 - $days_in_this_week); $x++):
+        if ($days_in_this_week < 8) :
+            for ($x = 1; $x <= (8 - $days_in_this_week); $x++) :
                 $calendar .= '<td class="calendar-day-np"> </td>';
             endfor;
         endif;
@@ -210,12 +211,12 @@ if (!function_exists('draw_calendar')) {
         /* all done, return result */
         return $calendar;
     }
-
 }
 
 if (!function_exists('to_csv')) {
 
-    function to_csv($data, $fileName) {
+    function to_csv($data, $fileName)
+    {
         $f = fopen('public/uploads/csv/' . $fileName, "w");
         foreach ($data as $line) {
             fputcsv($f, $line);
@@ -223,12 +224,12 @@ if (!function_exists('to_csv')) {
         fclose($f);
         return $fileName;
     }
-
 }
 
 if (!function_exists('to_xls')) {
 
-    function to_xls($data, $filename) {
+    function to_xls($data, $filename)
+    {
         $fp = fopen($filename, "w+");
         $str = pack(str_repeat("s", 6), 0x809, 0x8, 0x0, 0x10, 0x0, 0x0); // s | v
         fwrite($fp, $str);
@@ -255,12 +256,12 @@ if (!function_exists('to_xls')) {
 
         return $filename;
     }
-
 }
 
 if (!function_exists('_xlsWriteCell')) {
 
-    function _xlsWriteCell($row, $col, $val, $fp) {
+    function _xlsWriteCell($row, $col, $val, $fp)
+    {
         if (is_float($val) || is_int($val)) {
             $str = pack(str_repeat("s", 5), 0x203, 14, $row, $col, 0x0);
             $str .= pack("d", $val);
@@ -271,12 +272,7 @@ if (!function_exists('_xlsWriteCell')) {
         }
         fwrite($fp, $str);
     }
-
 }
 
 define('STATUS_ACTIVE', '1');
 define('STATUS_INACTIVE', '0');
-
-
-
-

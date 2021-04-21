@@ -15,6 +15,7 @@ use DataTables;
 use Mail;
 use PDF;
 use DB;
+use Carbon\Carbon;
 
 class ReportsController extends Controller
 {
@@ -108,10 +109,17 @@ class ReportsController extends Controller
 
     public function paymentReport(Request $request)
     {
-        $quarters = Quarter::get();
-        $centres = Centre::get();
-        $classes = ClassModel::get();
-        return view('reports.payment', compact('quarters', 'classes', 'centres'));
+        $dataArr['centre'] = $request->centre ?? NULL;
+        $dataArr['pay_year'] = $request->pay_year ?? NULL;
+        $dataArr['pay_term'] = $request->pay_term ?? NULL;
+        $dataArr['class'] = $request->classes ?? NULL;
+        $dataArr['payment_status'] = $request->payment_status ?? NULL;
+        $dataArr['student_status'] = $request->student_status ?? NULL;
+        $dataArr['centresDropdownArr'] = getDropdownList(Centre::get(), 'id', 'name');
+        $dataArr['termsDropdownArr'] = getDropdownList(Quarter::get(), 'id', 'name');
+        $dataArr['classesDropdownArr'] = getDropdownList(ClassModel::get(), 'id', 'name');
+        // $dataArr['classes'] = ClassModel::get();
+        return view('reports.payment', $dataArr);
     }
 
     public function generateInvoice($id)
@@ -164,21 +172,19 @@ class ReportsController extends Controller
 
     public function getPaymentReportsDatatable(Request $request)
     {
-
-        $resultArr = DB::table('fees')
+        $query = DB::table('fees')
             ->join('users', 'users.id', '=', 'fees.user_id')
             ->join('student_details', 'student_details.user_id', '=', 'fees.user_id')
             ->join('centres', 'centres.id', '=', 'student_details.centre')
-            ->join('classes', 'classes.id', '=', 'student_details.classes')
-            ->select('fees.*', 'users.first_name', 'users.last_name', 'student_details.p1_email')
+            ->join('classes', 'classes.id', '=', 'student_details.classes');
+        $request->student_status !== '3' ? $query->where('users.status', '=', $request->student_status) : '';
+        !empty($request->centre) ? $query->where('centres.id', '=', $request->centre) : '';
+        !empty($request->classes) ? $query->where('classes.id', '=', $request->classes) : '';
+        !empty($request->pay_term) ? $query->where('fees.pay_term', '=', $request->pay_term) : '';
+        !empty($request->pay_year) ? $query->where('fees.pay_year', '=', $request->pay_year) : '';
+        $resultArr = $query->select('fees.*', 'users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')
+            ->orderBy('fees.created_at', 'desc')
             ->get();
-
-        // pr($resultArr);
-
-
-
-
-
 
 
 
@@ -252,6 +258,11 @@ class ReportsController extends Controller
             ->addColumn('combined_name', function ($query) {
                 return $query->first_name . ' ' . $query->last_name;
             })
+            ->addColumn('payment_date', function ($query) {
+                return Carbon::parse($query->created_at)->format('d-M-Y');
+            })
+
+
             // ->addColumn('date', function (User $user) {
             //     $res = (!empty($user->fees)) ? date('d-m-Y', strtotime($user->fees->created_at)) : '';
             //     return $res;
