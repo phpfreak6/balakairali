@@ -83,16 +83,6 @@ Manage Payments
                     payment_status: payment_status,
                     student_status: student_status
                 }
-                // function(d) {
-                // d._token = _TOKEN;
-                // d.student_name = $('input[name=student_name]').val();
-                // d.year = $('.year').val();
-                // d.term = $('.term').val();
-                // d.centre = $('#filter_by_centre').val();
-                // d.classe = $('#filter_by_class').val();
-                // d.inactive = $('#inactive_student:checked').val();
-                // d.not_paid = $('#not_paid:checked').val();
-                // }
             },
             columns: [{
                     'className': 'text-center',
@@ -116,11 +106,13 @@ Manage Payments
                 },
                 {
                     'className': 'text-center',
-                    data: 'pay_term'
+                    data: 'pay_term',
+                    "defaultContent": 'N/A'
                 },
                 {
                     'className': 'text-center',
-                    data: 'pay_year'
+                    data: 'pay_year',
+                    "defaultContent": 'N/A'
                 }
             ]
         });
@@ -135,5 +127,4 @@ Manage Payments
         table.draw();
     });
 </script>
-<!-- <script src="{{ asset('assets/js/reports/index.js') }}"></script> -->
 @endsection

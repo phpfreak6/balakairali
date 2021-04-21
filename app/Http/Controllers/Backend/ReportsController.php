@@ -172,118 +172,61 @@ class ReportsController extends Controller
 
     public function getPaymentReportsDatatable(Request $request)
     {
-        $query = DB::table('fees')
-            ->join('users', 'users.id', '=', 'fees.user_id')
-            ->join('student_details', 'student_details.user_id', '=', 'fees.user_id')
-            ->join('centres', 'centres.id', '=', 'student_details.centre')
-            ->join('classes', 'classes.id', '=', 'student_details.classes');
-        $request->student_status !== '3' ? $query->where('users.status', '=', $request->student_status) : '';
-        !empty($request->centre) ? $query->where('centres.id', '=', $request->centre) : '';
-        !empty($request->classes) ? $query->where('classes.id', '=', $request->classes) : '';
-        !empty($request->pay_term) ? $query->where('fees.pay_term', '=', $request->pay_term) : '';
-        !empty($request->pay_year) ? $query->where('fees.pay_year', '=', $request->pay_year) : '';
-        $resultArr = $query->select('fees.*', 'users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')
-            ->orderBy('fees.created_at', 'desc')
-            ->get();
+        switch ($request->payment_status) {
+            case '2':
+                /* Get Paid Student Ids */
+                $query = DB::table('fees')
+                    ->join('users', 'users.id', '=', 'fees.user_id')
+                    ->join('student_details', 'student_details.user_id', '=', 'fees.user_id')
+                    ->join('centres', 'centres.id', '=', 'student_details.centre')
+                    ->join('classes', 'classes.id', '=', 'student_details.classes');
+                $request->student_status !== '3' ? $query->where('users.status', '=', $request->student_status) : '';
+                !empty($request->centre) ? $query->where('centres.id', '=', $request->centre) : '';
+                !empty($request->classes) ? $query->where('classes.id', '=', $request->classes) : '';
+                !empty($request->pay_term) ? $query->where('fees.pay_term', '=', $request->pay_term) : '';
+                !empty($request->pay_year) ? $query->where('fees.pay_year', '=', $request->pay_year) : '';
+                $paidStudentIds = $query->select('fees.*', 'users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')
+                    ->pluck('user_id')->toArray() ?? [];
 
+                /* Get Unpaid Student Ids */
+                $unpaid_students_query = DB::table('users')
+                    ->join('student_details', 'student_details.user_id', '=', 'users.id')
+                    ->join('centres', 'centres.id', '=', 'student_details.centre')
+                    ->join('classes', 'classes.id', '=', 'student_details.classes')
+                    ->whereNotIn('users.id', $paidStudentIds);
+                $request->student_status !== '3' ? $unpaid_students_query->where('users.status', '=', $request->student_status) : '';
+                !empty($request->centre) ? $unpaid_students_query->where('centres.id', '=', $request->centre) : '';
+                !empty($request->classes) ? $unpaid_students_query->where('classes.id', '=', $request->classes) : '';
+                $resultArr = $unpaid_students_query->select('users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')->get();
+                // pr($resultArr);
+                break;
 
-
-        // $data = $request->all();
-        // $query = User::whereRole(User::STUDENT);
-        // if (isset($data['inactive'])) {
-        //     $status = '0';
-        // } else {
-        //     $status = '1';
-        // }
-        // if (!empty($data['student_name']) && !empty($data['year']) && !isset($data['not_paid'])) {
-        //     $name = $data['student_name'];
-        //     $year = $data['year'];
-        //     $term = $data['term'];
-        //     $centre = $data['centre'];
-        //     $class = $data['classe'];
-        //     if (is_numeric($name)) {
-        //         $ids = StudentDetail::where('centre', $centre)->where('classes', $class)->pluck('user_id')->all();
-        //         $query = User::whereIn('id', $ids);
-        //         $query->whereHas('fees', function ($q) use ($year, $term) {
-        //             $q->where('pay_year', $year);
-        //             $q->where('pay_term', $term);
-        //         })->where(['id' => $name, 'status' => $status]);
-        //     } else {
-        //         $ids = StudentDetail::where('centre', $centre)->where('classes', $class)->pluck('user_id')->all();
-        //         $query = User::whereIn('id', $ids);
-        //         $query->whereHas('fees', function ($q) use ($year, $term) {
-        //             $q->where('pay_year', $year);
-        //             $q->where('pay_term', $term);
-        //         })
-        //             ->where('name', 'LIKE', '%' . $name . '%')
-        //             ->orWhereHas('student', function ($q) use ($name, $centre) {
-        //                 $q->where('p1_first_name', 'LIKE', '%' . $name . '%');
-        //                 $q->orWhere('p1_last_name', 'LIKE', '%' . $name . '%');
-        //             })->where('status', $status);
-        //     }
-        // } elseif (empty($data['student_name']) && empty($data['year']) && isset($data['not_paid'])) {
-        //     $year = date('Y');
-        //     $centre = $data['centre'];
-        //     $class = $data['classe'];
-        //     $ids = StudentDetail::where('centre', $centre)->where('classes', $class)->pluck('user_id')->all();
-        //     $query = User::whereIn('id', $ids);
-        //     $query->whereDoesntHave('fees', function ($q) use ($year) {
-        //         $q->where('pay_year', $year);
-        //         $q->where('pay_term', Quarter::previousTerm());
-        //     })->where(['status' => $status]);
-        // } elseif (empty($data['student_name']) && !empty($data['year']) && !isset($data['not_paid'])) {
-        //     $year = $data['year'];
-        //     $term = $data['term'];
-        //     $centre = $data['centre'];
-        //     $class = $data['classe'];
-        //     $ids = StudentDetail::where('centre', $centre)->where('classes', $class)->pluck('user_id')->all();
-        //     $query = User::whereIn('id', $ids);
-        //     $query->whereHas('fees', function ($q) use ($year, $term) {
-        //         $q->where('pay_year', $year);
-        //         $q->where('pay_term', $term);
-        //     })->where(['status' => $status]);
-        // } else {
-        //     $centre = $data['centre'];
-        //     $class = $data['classe'];
-        //     $year = date('Y');
-        //     $term = $data['term'];
-        //     $ids = StudentDetail::where('centre', $centre)->where('classes', $class)->pluck('user_id')->all();
-        //     $query = User::whereIn('id', $ids);
-        //     $query->whereHas('fees', function ($q) use ($year, $term) {
-        //         $q->where('pay_year', $year);
-        //         $q->where('pay_term', $term);
-        //     })->where(['status' => $status]);
-        // }
+            default:
+                $query = DB::table('fees')
+                    ->join('users', 'users.id', '=', 'fees.user_id')
+                    ->join('student_details', 'student_details.user_id', '=', 'fees.user_id')
+                    ->join('centres', 'centres.id', '=', 'student_details.centre')
+                    ->join('classes', 'classes.id', '=', 'student_details.classes');
+                $request->student_status !== '3' ? $query->where('users.status', '=', $request->student_status) : '';
+                !empty($request->centre) ? $query->where('centres.id', '=', $request->centre) : '';
+                !empty($request->classes) ? $query->where('classes.id', '=', $request->classes) : '';
+                !empty($request->pay_term) ? $query->where('fees.pay_term', '=', $request->pay_term) : '';
+                !empty($request->pay_year) ? $query->where('fees.pay_year', '=', $request->pay_year) : '';
+                $resultArr = $query->select('fees.*', 'users.first_name', 'users.last_name', 'student_details.p1_email', 'classes.name as class_name', 'centres.name as centre_name')
+                    ->orderBy('fees.created_at', 'desc')
+                    ->get();
+                break;
+        }
         return DataTables::of($resultArr)
             ->addColumn('combined_name', function ($query) {
                 return $query->first_name . ' ' . $query->last_name;
             })
             ->addColumn('payment_date', function ($query) {
-                return Carbon::parse($query->created_at)->format('d-M-Y');
+                if (!empty($query->created_at)) {
+                    return Carbon::parse($query->created_at)->format('d-M-Y');
+                }
+                return 'N/A';
             })
-
-
-            // ->addColumn('date', function (User $user) {
-            //     $res = (!empty($user->fees)) ? date('d-m-Y', strtotime($user->fees->created_at)) : '';
-            //     return $res;
-            // })
-            // ->addColumn('student_name', function (User $user) {
-            //     return $user->name;
-            // })
-            // ->addColumn('parent_email', function (User $user) {
-            //     return $user->student->p1_email;
-            // })
-            // ->addColumn('invoice_type', function (User $user) {
-            //     $res = (!empty($user->fees)) ? $user->fees->invoice_type : '';
-            //     return $res;
-            // })
-            // ->addColumn('payment_details', function (User $user) {
-            //     return (!empty($user->fees)) ? '<strong>Year : </strong>' . $user->fees->pay_year . ' <strong>Term : </strong>' . $user->fees->pay_term : '';
-            // })
-            // ->addColumn('actions', function (User $user) {
-            //     return (!empty($user->fees)) ? '<a class="btn btn-sm btn-primary" href="invoice/' . $user->fees->id . '">Download Invoice</a> <a class="btn btn-sm btn-purple mail_invoice" href="mail-invoice/' . $user->fees->id . '">Send Invoice</a>' : '';
-            // })->addIndexColumn()
-            // ->rawColumns(['actions', 'payment_details'])
             ->make(true);
     }
 }
