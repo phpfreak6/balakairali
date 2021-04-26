@@ -4,16 +4,13 @@
     .login-color {
         color: green;
     }
-
     html,
     body.LoginPageBody {
         height: 100% !important;
     }
-
     .FormDiv form .ResetNow {
         margin-bottom: 6px;
     }
-
     .LoginPageBody .LoginPageContent {
         padding-top: 0px;
     }
@@ -27,7 +24,9 @@
     <div class="container LoginPageContent">
         <div class="row">
             <div class="col-md-12 d-flex justify-content-center align-items-center">
-                <div class="LoginLogo"><img src="{{ asset('assets/images/front/Logo.png') }}" alt="" /></div>
+                <div class="LoginLogo">
+                    <img src="{{ asset('assets/images/front/Logo.png') }}" alt="" />
+                </div>
                 <div class="FormDiv">
                     <form method="post" action="{{ route('slogin') }}">
                         @csrf

@@ -7,32 +7,31 @@ Manage Payments
     <div class="col-xs-12 col-md-12">
         <div class="widget-box ui-sortable-handle" id="widget-box-1">
             <div class="widget-header">
-                <!-- <h5 class="widget-title">Payment Record Filter</h5> -->
                 <form method="GET" id="payment_filter">
                     <div class="row">
                         <div class="col-sm-2">
                             <?= Form::label('centre', 'Centre', ['class' => 'form-label text-primary']) ?>
-                            <?= Form::select('centre', $centresDropdownArr, $centre, ['id' => 'centre', 'class' => 'form-control input-sm', 'style' => 'margin-top: 6px;']) ?>
+                            <?= Form::select('centre', $centresDropdownArr, $centre, ['id' => 'centre', 'class' => 'form-control ', 'style' => 'margin-top: 6px;']) ?>
                         </div>
                         <div class="col-sm-2">
                             <?= Form::label('class', 'Class', ['class' => 'form-label text-primary']) ?>
-                            <?= Form::select('classes', $classesDropdownArr, $class, ['id' => 'classes', 'class' => 'form-control input-sm', 'style' => 'margin-top: 6px;']) ?>
+                            <?= Form::select('classes', $classesDropdownArr, $class, ['id' => 'classes', 'class' => 'form-control ', 'style' => 'margin-top: 6px;']) ?>
                         </div>
                         <div class="col-sm-2">
                             <?= Form::label('pay_year', 'Year', ['class' => 'form-label text-primary']) ?>
-                            <?= Form::select('pay_year', ['' => 'Payment Year', '2021' => '2021', '2022' => '2022', '2023' => '2023', '2024' => '2024'], $pay_year, ['id' => 'pay_year', 'class' => 'form-control input-sm year', 'style' => 'margin-top: 6px;']) ?>
+                            <?= Form::select('pay_year', ['' => 'Payment Year', '2021' => '2021', '2022' => '2022', '2023' => '2023', '2024' => '2024'], $pay_year, ['id' => 'pay_year', 'class' => 'form-control  year', 'style' => 'margin-top: 6px;']) ?>
                         </div>
                         <div class="col-sm-2">
                             <?= Form::label('pay_term', 'Term', ['class' => 'form-label text-primary']) ?>
-                            <?= Form::select('pay_term', $termsDropdownArr, $pay_term, ['id' => 'pay_term', 'class' => 'form-control input-sm term', 'style' => 'margin-top: 6px;']) ?>
+                            <?= Form::select('pay_term', $termsDropdownArr, $pay_term, ['id' => 'pay_term', 'class' => 'form-control  term', 'style' => 'margin-top: 6px;']) ?>
                         </div>
                         <div class="col-sm-2">
                             <?= Form::label('payment_status', 'Payment Status', ['class' => 'form-label text-primary']) ?>
-                            <?= Form::select('payment_status', ['1' => 'Paid', '2' => 'Unpaid'], $payment_status ?? 1, ['id' => 'payment_status', 'class' => 'form-control input-sm payment_status', 'style' => 'margin-top: 6px;']) ?>
+                            <?= Form::select('payment_status', ['1' => 'Paid', '2' => 'Unpaid'], $payment_status ?? 1, ['id' => 'payment_status', 'class' => 'form-control  payment_status', 'style' => 'margin-top: 6px;']) ?>
                         </div>
                         <div class="col-sm-2">
                             <?= Form::label('student_status', 'Student Status', ['class' => 'form-label text-primary']) ?>
-                            <?= Form::select('student_status', ['1' => 'Active', '0' => 'Inactive', '3' => 'All'], $student_status ?? 1, ['id' => 'student_status', 'class' => 'form-control input-sm student_status', 'style' => 'margin-top: 6px;']) ?>
+                            <?= Form::select('student_status', ['1' => 'Active', '0' => 'Inactive', '3' => 'All'], $student_status ?? 1, ['id' => 'student_status', 'class' => 'form-control  student_status', 'style' => 'margin-top: 6px;']) ?>
                         </div>
                         <div class="col-sm-2">
                             <button style="margin-top: 6px;" type="submit" class="btn btn-sm btn-success filter_btn"><i class="fa fa-search" aria-hidden="true"></i> Filter</button>
@@ -121,11 +120,11 @@ Manage Payments
         });
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         getPaymentReportsDatatable();
     });
 
-    $(document).on('submit', '#payment_form', function(e) {
+    $(document).on('submit', '#payment_form', function (e) {
         e.preventDefault();
         table.draw();
     });

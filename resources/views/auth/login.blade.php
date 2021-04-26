@@ -21,59 +21,58 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     <img src="{{ asset('assets/images/front/Logo.png') }}">
                 </div>
                 <div class="FormDiv">
-                    <form method="post">
-                        @csrf
-                        <div class="InputDivWrap studentLogin">
-                            <div class="InputDiv">
-                                <i><img src="{{ asset('assets/images/front/Mobile.svg') }}" alt="" /></i>
-                                <input autocomplete="off" type="text" class="form-control" name="mobile" id="number" placeholder="Enter Parent’s Mobile Number">
-                            </div>
-                            <span class="mobile_error"></span>
+                    <?= Form::open(['id' => 'student_login_form']) ?>
+                    <div class="InputDivWrap studentLogin">
+                        <div class="InputDiv">
+                            <i><img src="{{ asset('assets/images/front/Mobile.svg') }}" alt=""></i>
+                            <input autocomplete="off" type="text" class="form-control" name="mobile" id="number" placeholder="Enter Parent’s Mobile Number">
                         </div>
-                        <div class="Digit">
-                            <ul>
-                                <li>
-                                    <div class="DigitBox hover-overlay" onclick="document.getElementById('number').value = document.getElementById('number').value + '1';">1</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '2';">2</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '3';">3</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '4';">4</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '5';">5</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '6';">6</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '7';">7</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '8';">8</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '9';">9</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value.slice(0, -1);">DEL</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '0';">0</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <button type="button" id="parentMobile" class="btn GreyBtn">Submit</button>
-                        </div>
-                    </form>
+                        <span class="mobile_error text-danger"></span>
+                    </div>
+                    <div class="Digit">
+                        <ul>
+                            <li>
+                                <div class="DigitBox hover-overlay" onclick="document.getElementById('number').value = document.getElementById('number').value + '1';">1</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '2';">2</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '3';">3</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '4';">4</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '5';">5</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '6';">6</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '7';">7</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '8';">8</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '9';">9</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value.slice(0, -1);">DEL</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = document.getElementById('number').value + '0';">0</div>
+                            </li>
+                            <li>
+                                <div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <button type="submit" id="parentMobile" class="btn GreyBtn">Submit</button>
+                    </div>
+                    <?= Form::close() ?>
                 </div>
             </div>
             @include('partials.footer')
@@ -83,11 +82,58 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
 @endsection
 @section('scripts')
 <script>
-    $(document).ready(function() {
+
+//    function validateParentMobileNumber() {
+//        $('#student_login_form').validate({
+//            errorElement: 'label',
+//            errorClass: 'help-block',
+//            focusInvalid: false,
+//            ignore: "",
+//            errorPlacement: function (error, element) {
+//                error.appendTo('.mobile_error');
+//            },
+//            highlight: function (e) {
+//                $('.InputDiv').addClass('border_red');
+//            },
+//            success: function (e) {
+//                $('.InputDiv').removeClass('border_red');
+//                $(e).remove();
+//            },
+//            rules: {
+//                mobile: {
+//                    required: true,
+//                    remote: {
+//                        url: 'available.php',
+//                        type: 'POST',
+//                        data: {
+//                            user_nickname: function () {
+//                                return $("#user_nickname").val();
+//                            }
+//                        }
+//                    }
+//                }
+//            },
+//            messages: {
+//                mobile: {
+//                    required: 'Please Enter Mobile Number'
+//                }
+//            },
+//            submitHandler: function (form) {
+//                form.submit();
+//            },
+//            invalidHandler: function (form) {
+//            }
+//        });
+//    }
+
+    $(document).ready(function () {
+//        validateParentMobileNumber();
+
         var baseUrl = $('meta[name="base-url"]').attr('content');
-        $('#parentMobile').on('click', function(e) {
+        $('#parentMobile').on('click', function (e) {
             $('#parentMobile').prop('disabled', true);
             $('#parentMobile').text('').html('<div class="spinner-border"></div>');
+
             if ($('#number').val() == '') {
                 $('.InputDiv').css('border', '1px solid #D22935');
                 $('.mobile_error').html('<label class="text-danger">Please Enter Mobile Number.</label>');
@@ -98,6 +144,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 $('.InputDiv').css('border', '1px solid #E4E3E3');
                 $('.mobile_error').html('');
             }
+
             $.ajax({
                 type: 'POST',
                 url: baseUrl + '/findParentMobile',
@@ -105,7 +152,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     'mobile': $('#number').val(),
                     '_token': AUTHENTICATION_TOKEN
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response == false) {
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
@@ -113,28 +160,23 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         $('.mobile_error').html('<label class="text-danger">Mobile Number Not Found.</label>');
                         return false;
                     } else if (response == 'time') {
-                        toastr.options = {
-                            "closeButton": true
-                        };
+                        toastr.options = {"closeButton": true};
                         toastr.error("You can't login at this time.");
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
                     } else if (response == 'holiday') {
-                        toastr.options = {
-                            "closeButton": true
-                        };
+                        toastr.options = {"closeButton": true};
                         toastr.warning("You can't login today. Today is holiday.");
                         $('#parentMobile').prop('disabled', false);
                         $('#parentMobile').text('Submit');
                     } else {
-                        alert('tyagi');
                         window.location.replace('<?= url('/') ?>');
                     }
                 }
             });
         });
 
-        $('#pinLogin').on('click', function(e) {
+        $('#pinLogin').on('click', function (e) {
             $('#pinLogin').prop('disabled', true);
             $('#pinLogin').text('').html('<div class="spinner-border"></div>');
             if ($('#pin').val() == '') {
@@ -157,7 +199,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     'mobile': $('#number').val(),
                     'pin': $('#pin').val()
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response == false) {
                         $('#pinLogin').prop('disabled', false);
                         $('#pinLogin').text('Find Student/s');
@@ -173,7 +215,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 },
             });
         });
-        $(document).on('click', '.student_btn', function() {
+        $(document).on('click', '.student_btn', function () {
             var crypt_data = $(this).data('login');
             var content = $(this).text();
             $.ajax({
@@ -185,7 +227,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 data: {
                     'crypt_data': crypt_data
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.status == 'logged-out') {
                         toastr.options = {
                             "closeButton": true,
@@ -233,10 +275,10 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 },
             });
         });
-        $(document).on('click', '.logout_btn', function() {
+        $(document).on('click', '.logout_btn', function () {
             $('#logoutform').submit();
         });
-        $('.search-kids').on('click', function(e) {
+        $('.search-kids').on('click', function (e) {
             var $parent = $('#parent_number').val();
             $.ajax({
                 type: 'GET',
@@ -244,7 +286,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 data: {
                     'parent_number': $parent
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.status == false) {
                         toastr.options = {
                             "closeButton": true,
@@ -258,7 +300,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                 }
             });
         });
-        $(document).on('click', '.student_action_btn', function() {
+        $(document).on('click', '.student_action_btn', function () {
             var student_id = $(this).data('login');
             var action = $(this).text();
             $.ajax({
@@ -268,7 +310,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                     'student_id': student_id,
                     'action': action
                 },
-                success: function(response) {
+                success: function (response) {
                     if (response.status == false) {
                         toastr.options = {
                             "closeButton": true,
@@ -294,10 +336,10 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
         });
     });
 
-    $(function() {
-        $(this).bind("contextmenu", function(e) {
-            e.preventDefault();
-        });
-    });
+//    $(function () {
+//        $(this).bind("contextmenu", function (e) {
+//            e.preventDefault();
+//        });
+//    });
 </script>
 @endsection

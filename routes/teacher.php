@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\ClassesController;
 use App\Http\Controllers\Backend\TeachersController;
 use App\Http\Controllers\Backend\AttendanceController;
 use App\Http\Controllers\Backend\ReportsController;
-use App\Http\Controllers\Backend\SigninSignoutController;
+use App\Http\Controllers\Backend\SignController;
 use App\Http\Controllers\Backend\TeacherResourceController;
 use App\Http\Controllers\Backend\SettingsController;
 
@@ -69,7 +69,7 @@ Route::group(['middleware' => ['auth', 'teacher'], 'prefix' => 'teacher', 'as' =
 
     //Login - logout
 
-    Route::match(['get', 'post'], 'signin-signout', [SigninSignoutController::class, 'index'])->name('signinSignout');
+    Route::match(['get', 'post'], 'signin-signout', [SignController::class, 'index'])->name('signinSignout');
 
     // Teachers Resource
 

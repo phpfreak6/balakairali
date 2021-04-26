@@ -62,31 +62,11 @@
                 Manage Payments
             </a>
         </li>
-        <li class="{{ (request()->is('admin/attendance/report') || request()->is('admin/payment/report')) ? 'open active' : '' }}">
-            <a href="#" class="dropdown-toggle">
-                <i class="menu-icon fa fa-file-o"></i>
-                <span class="menu-text">
-                    Reports
-                </span>
-                <b class="arrow fa fa-angle-down"></b>
+        <li class="{{ (request()->is('admin/attendance/report')) ? 'active' : '' }}">
+            <a href="{{ route('admin.attendanceReport') }}">
+                <i class="menu-icon fa fa-edit"></i>
+                Attendance Report
             </a>
-            <b class="arrow"></b>
-            <ul class="submenu {{ (request()->is('admin/attendance/report') || request()->is('admin/payment/report')) ? 'nav-show' : '' }}">
-                <li class="">
-                    <a href="{{ route('admin.attendanceReport') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Attendance Report
-                    </a>
-                    <b class="arrow"></b>
-                </li>
-                <!-- <li class="">
-                    <a href="{{ route('admin.paymentReport') }}">
-                        <i class="menu-icon fa fa-caret-right"></i>
-                        Payment Report
-                    </a>
-                    <b class="arrow"></b>
-                </li> -->
-            </ul>
         </li>
         @admin
         <li class="{{ (request()->is('admin/settings') || request()->is('admin/settings/*')) ? 'active' : '' }}">

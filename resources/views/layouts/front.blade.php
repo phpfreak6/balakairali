@@ -9,11 +9,12 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-        <link rel="stylesheet" href="<?= url('assets/theme/plugins/toastr/toastr.css') ?>">
+        <link href="<?= url('assets/theme/plugins/toastr/toastr.css') ?>" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
-        <script src="{{ asset('assets/js/front/jquery-3.3.1.min.js') }}"></script>
-        <script src="{{ asset('assets/theme/js/jquery.maskedinput.js') }}"></script>
-        <title>Bala Kairali</title>
+        <script src="<?= url('assets/js/front/jquery-3.3.1.min.js') ?>"></script>
+        <script src="<?= url('assets/theme/js/jquery.maskedinput.js') ?>"></script>
+        <script src="<?= url('assets/theme/js/jquery.validate.js') ?>"></script>
+        <title>Balakairali</title>
         <script>
 var AUTHENTICATION_TOKEN = '<?= csrf_token() ?>';
         </script>

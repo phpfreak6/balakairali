@@ -8,7 +8,7 @@ use App\Http\Controllers\Backend\ClassesController;
 use App\Http\Controllers\Backend\TeachersController;
 use App\Http\Controllers\Backend\AttendanceController;
 use App\Http\Controllers\Backend\ReportsController;
-use App\Http\Controllers\Backend\SigninSignoutController;
+use App\Http\Controllers\Backend\SignController;
 use App\Http\Controllers\Backend\TeacherResourceController;
 use App\Http\Controllers\Backend\SettingsController;
 use App\Http\Controllers\Backend\ProfileController;
@@ -94,9 +94,9 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     Route::post('attendance/totalClasses', [ReportsController::class, 'totalClasses']);
 
     //Login - logout
-    Route::match(['get', 'post'], 'signin-signout', [SigninSignoutController::class, 'index'])->name('signinSignout');
-    Route::get('signin-signout-kids', [SigninSignoutController::class, 'signinSignout'])->name('signinSignoutKids');
-    Route::get('load-kids-signin', [SigninSignoutController::class, 'loadForSigninOut']);
+    Route::match(['get', 'post'], 'signin-signout', [SignController::class, 'index'])->name('signinSignout');
+    Route::get('signin-signout-kids', [SignController::class, 'signinSignout'])->name('signinSignoutKids');
+    Route::get('load-kids-signin', [SignController::class, 'loadForSigninOut']);
 
     // Teachers Resource
     Route::get('teachers-resource', [TeacherResourceController::class, 'index'])->name('resourceIndex');

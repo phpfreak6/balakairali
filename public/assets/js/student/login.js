@@ -1,45 +1,47 @@
 $(document).ready(function () {
     var baseUrl = $('meta[name="base-url"]').attr('content');
-    $('#parentMobile').on('click', function (e) {
-        $('#parentMobile').prop('disabled', true);
-        $('#parentMobile').text('').html('<div class="spinner-border"></div>');
-        if ($('#number').val() == '') {
-            $('.InputDiv').css('border', '1px solid #D22935');
-            $('.mobile_error').html('<label class="text-danger">Please Enter Mobile Number.</label>');
-            $('#parentMobile').prop('disabled', false);
-            $('#parentMobile').text('Submit');
-            return false;
-        } else {
-            $('.InputDiv').css('border', '1px solid #E4E3E3');
-            $('.mobile_error').html('');
-        }
-        $.ajax({
-            type: 'POST',
-            url: baseUrl + '/findParentMobile',
-            data: {'mobile': $('#number').val(), '_token': AUTHENTICATION_TOKEN},
-            success: function (response) {
-                if (response == false) {
-                    $('#parentMobile').prop('disabled', false);
-                    $('#parentMobile').text('Submit');
-                    $('.InputDiv').css('border', '1px solid #D22935');
-                    $('.mobile_error').html('<center><label class = "text-danger">Mobile number not found.</label></center>');
-                    return false;
-                } else if (response == 'time') {
-                    toastr.options = {"closeButton": true};
-                    toastr.error("You can't login at this time.");
-                    $('#parentMobile').prop('disabled', false);
-                    $('#parentMobile').text('Submit');
-                } else if (response == 'holiday') {
-                    toastr.options = {"closeButton": true};
-                    toastr.warning("You can't login today. Today is holiday.");
-                    $('#parentMobile').prop('disabled', false);
-                    $('#parentMobile').text('Submit');
-                } else {
-                    window.location.reload();
-                }
-            },
-        });
-    });
+//    $('#parentMobile').on('click', function (e) {
+//        $('#parentMobile').prop('disabled', true);
+//        $('#parentMobile').text('').html('<div class="spinner-border"></div>');
+//        if ($('#number').val() == '') {
+//            $('.InputDiv').css('border', '1px solid #D22935');
+//            $('.mobile_error').html('<label class="text-danger">Please Enter Mobile Number.</label>');
+//            $('#parentMobile').prop('disabled', false);
+//            $('#parentMobile').text('Submit');
+//            return false;
+//        } else {
+//            $('.InputDiv').css('border', '1px solid #E4E3E3');
+//            $('.mobile_error').html('');
+//        }
+//        $.ajax({
+//            type: 'POST',
+//            url: baseUrl + '/findParentMobile',
+//            data: {'mobile': $('#number').val(), '_token': AUTHENTICATION_TOKEN},
+//            success: function (response) {
+//                if (response == false) {
+//                    $('#parentMobile').prop('disabled', false);
+//                    $('#parentMobile').text('Submit');
+//                    $('.InputDiv').css('border', '1px solid #D22935');
+//                    $('.mobile_error').html('<center><label class = "text-danger">Mobile number not found.</label></center>');
+//                    return false;
+//                } else if (response == 'time') {
+//                    toastr.options = {"closeButton": true};
+//                    toastr.error("You can't login at this time.");
+//                    $('#parentMobile').prop('disabled', false);
+//                    $('#parentMobile').text('Submit');
+//                } else if (response == 'holiday') {
+//                    toastr.options = {"closeButton": true};
+//                    toastr.warning("You can't login today. Today is holiday.");
+//                    $('#parentMobile').prop('disabled', false);
+//                    $('#parentMobile').text('Submit');
+//                } else {
+//                    window.location.reload();
+//                }
+//            },
+//        });
+//    });
+
+
     $('#pinLogin').on('click', function (e) {
         $('#pinLogin').prop('disabled', true);
         $('#pinLogin').text('').html('<div class="spinner-border"></div>');
@@ -53,6 +55,7 @@ $(document).ready(function () {
             $('.InputDiv').css('border', '1px solid #E4E3E3');
             $('.mobile_error').html('');
         }
+
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
             type: 'POST',
@@ -69,11 +72,15 @@ $(document).ready(function () {
                 $('.input_show_hide').hide();
                 $('.keypad_div').hide();
                 $('.user_list').html(response);
+                toastr.options = {"closeButton": true, "positionClass": "toast-top-center", "timeOut": 3000};
+                toastr.success('Welcome');
                 $('#pinLogin').prop('disabled', false);
-                $('#pinLogin').text('Find Student/s')
-            },
+                $('#pinLogin').text('Find Student/s');
+            }
         });
     });
+
+
     $(document).on('click', '.student_btn', function () {
         var crypt_data = $(this).data('login');
         var content = $(this).text();

@@ -12,22 +12,18 @@ use App\Models\Holiday;
 use App\Models\Setting;
 use App\Models\User;
 
-class StudentLoginController extends Controller
-{
+class StudentLoginController extends Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest')->except('logout', 'studentLogin', 'findStudent', 'login', 'autologout');
     }
 
-    public function index()
-    {
+    public function index() {
         $auth = Setting::select('settings')->where('name', 'portal_login')->first();
         return view('auth.login', compact('auth'));
     }
 
-    public function findParentMobile(Request $request)
-    {
+    public function findParentMobile(Request $request) {
         if (Setting::checkClassTime() == 'time') {
             return 'time';
         }
@@ -37,17 +33,16 @@ class StudentLoginController extends Controller
             return 'holiday';
         }
         $user = StudentDetail::where('p1_mobile', $request->mobile)
-            ->orWhere('p2_mobile', $request->mobile)
-            ->first();
+                ->orWhere('p2_mobile', $request->mobile)
+                ->first();
         if ($user) {
-            // Auth::login($user->user);
+            Auth::login($user->user);
             return $request->mobile;
         }
         return false;
     }
 
-    public function studentLogin()
-    {
+    public function studentLogin() {
         $ids = LoginRecord::where('parent_mobile', auth()->user()->student->p1_mobile)->whereDate('login_time', date('Y-m-d'))->whereNull('logout_time')->pluck('user_id')->all();
         $assigned = StudentDetail::where('p1_mobile', auth()->user()->student->p1_mobile)->pluck('assigned_kids')->first();
         if (!empty($assigned)) {
@@ -60,8 +55,7 @@ class StudentLoginController extends Controller
         return view('auth.loginWithPin', compact('students'));
     }
 
-    public function findStudent(Request $request)
-    {
+    public function findStudent(Request $request) {
         $ids = StudentDetail::where('p1_mobile', auth()->user()->student->p1_mobile)->pluck('user_id')->all();
         $assigned = StudentDetail::where('p1_mobile', auth()->user()->student->p1_mobile)->pluck('assigned_kids')->first();
         if (!empty($assigned)) {
@@ -75,17 +69,16 @@ class StudentLoginController extends Controller
         return view('partials.user_list', compact('students'));
     }
 
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $userid = Crypt::decryptString($request->crypt_data);
         $res = LoginRecord::loginLogoutResponse($userid);
         return $res;
     }
 
-    public function autologout()
-    {
+    public function autologout() {
         $user = auth()->user();
         Auth::loginUsingId($user->id);
         return redirect('/');
     }
+
 }
