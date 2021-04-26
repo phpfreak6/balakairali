@@ -38,10 +38,10 @@
                 Sign-in/Sign-out Kids
             </a>
         </li>
-        <li class="{{ (request()->is('admin/signin-signout') || request()->is('admin/signin-signout/*')) ? 'active' : '' }}">
+        <li class="{{ (request()->is('admin/sign-records/index') || request()->is('admin/sign-reports/*')) ? 'active' : '' }}">
             <a href="{{ route('admin.signinSignout') }}">
                 <i class="menu-icon fa fa-info-circle"></i>
-                Sign-in/Sign-out Record
+                Sign IN/OUT Records
             </a>
         </li>
         <li class="{{ (request()->is('admin/attendance')) ? 'active' : '' }}">

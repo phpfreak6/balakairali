@@ -29,15 +29,13 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         dom: 'Bfrtip',
-        buttons: [
-            {
+        buttons: [{
                 "extend": "csv",
                 "text": "<i class='fa fa-database bigger-110 orange'></i> <span class=''>Export</span>",
                 "className": "btn btn-white btn-primary btn-bold"
-            },
-        ],
+            }],
         ajax: {
-            url: URL + "/admin/signin-signout",
+            url: URL + "/admin/sign-records/index",
             type: "POST",
             data: function (d) {
                 d._token = _TOKEN;
@@ -50,11 +48,11 @@ $(document).ready(function () {
         columns: [
             {'className': 'text-center', data: 'date'},
             {'className': 'text-center', data: 'user_id'},
-            {'className': 'text-center', data: 'name'},
-            {'className': 'text-center', data: 'class'},
+            {'className': 'text-center', data: 'user_name'},
+            {'className': 'text-center', data: 'class_name'},
             {'className': 'text-center', data: 'login_time'},
             {'className': 'text-center', data: 'logout_time'},
-            {'className': 'text-center', data: 'duration'},
+            {'className': 'text-center', data: 'duration'}
         ]
     });
 

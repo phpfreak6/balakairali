@@ -94,7 +94,7 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     Route::post('attendance/totalClasses', [ReportsController::class, 'totalClasses']);
 
     //Login - logout
-    Route::match(['get', 'post'], 'signin-signout', [SignController::class, 'index'])->name('signinSignout');
+    Route::match(['get', 'post'], 'sign-records/index', [SignController::class, 'index'])->name('signinSignout');
     Route::get('signin-signout-kids', [SignController::class, 'signinSignout'])->name('signinSignoutKids');
     Route::get('load-kids-signin', [SignController::class, 'loadForSigninOut']);
 
