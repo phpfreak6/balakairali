@@ -73,7 +73,7 @@ class SignController extends Controller {
         $dataArr['start_date'] = $request->start_date ?? '';
         $dataArr['end_date'] = $request->end_date ?? '';
         $dataArr['centres'] = Centre::get();
-        $dataArr['classes'] = Classes::get();
+        $dataArr['classes'] = Classes::with('centre')->get();
         return view('students/sign_in', $dataArr);
     }
 

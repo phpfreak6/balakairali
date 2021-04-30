@@ -34,7 +34,9 @@ Sign-in / Sign-out Record
                                             <select class="form-control" id="filter_by_class" name="class_value" >
                                                 <option value="" selected="">Select Class</option>
                                                 @foreach($classes as $class)
-                                                <option <?= $class_value == $class->id ? 'selected' : '' ?> value="{{ $class->id }}">{{ $class->name }}</option>
+                                                <option <?= $class_value == $class->id ? 'selected' : '' ?> value="{{ $class->id }}">
+                                                    {{ $class->name }}- <?= $class->centre->name ?>
+                                                </option>
                                                 @endforeach
                                             </select>
                                         </div>
