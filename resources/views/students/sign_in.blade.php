@@ -9,7 +9,7 @@ Sign-in / Sign-out Record
             <div class="widget-header">
                 <h5 class="widget-title">Filters</h5>
             </div>
-            <form method="post" id="signin_form">
+            <form action="<?= route('admin.signinSignout') ?>" method="GET" id="signin_form">
                 <div class="widget-body">
                     <div class="widget-main">
                         <div class="row">
@@ -17,10 +17,10 @@ Sign-in / Sign-out Record
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label no-padding-right" for="name"> Select Centre : </label>
                                     <div class="col-sm-7">
-                                        <select class="form-control input-sm" id="filter_by_centre" name="centre" required="">
+                                        <select class="form-control" id="filter_by_centre" name="centre_value">
                                             <option value="" selected="">Select Centre</option>
                                             @foreach($centres as $centre)
-                                            <option value="{{ $centre->id }}">{{ $centre->name }}</option>
+                                            <option <?= $centre_value == $centre->id ? 'selected' : '' ?> value="{{ $centre->id }}">{{ $centre->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -31,10 +31,10 @@ Sign-in / Sign-out Record
                                     <label class="col-sm-5 control-label no-padding-right" for="address"> Select Class : </label>
                                     <div class="col-sm-7">
                                         <div class="classes_append">  
-                                            <select class="form-control input-sm" id="filter_by_class" name="classes" >
+                                            <select class="form-control" id="filter_by_class" name="class_value" >
                                                 <option value="" selected="">Select Class</option>
                                                 @foreach($classes as $class)
-                                                <option value="{{ $class->id }}">{{ $class->name }}</option>
+                                                <option <?= $class_value == $class->id ? 'selected' : '' ?> value="{{ $class->id }}">{{ $class->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -44,15 +44,15 @@ Sign-in / Sign-out Record
                         </div>
                         <div class="row" style="margin-top: 5px;">
                             <div class="col-sm-5">
-                                <label class="col-sm-5 control-label no-padding-right" for="first_date"> Start Date : </label>
+                                <label class="col-sm-5 control-label no-padding-right" for="start_date"> Start Date : </label>
                                 <div class="col-sm-7">
-                                    <input type="text" name="last_date" id="start_date" class="input-sm datepicker1" placeholder="Start Date">
+                                    <input value="<?= $start_date ?>" type="text" name="start_date" id="start_date" class="datepicker1" placeholder="Start Date">
                                 </div>
                             </div>
                             <div class="col-sm-5">
-                                <label class="col-sm-5 control-label no-padding-right" for="last_date"> End Date : </label>
+                                <label class="col-sm-5 control-label no-padding-right" for="end_date"> End Date : </label>
                                 <div class="col-sm-7">
-                                    <input type="text" name="last_date" id="end_date" class="input-sm datepicker1" placeholder="End Date">
+                                    <input value="<?= $end_date ?>" type="text" name="end_date" id="end_date" class="datepicker1" placeholder="End Date">
                                 </div>
                             </div>
                             <div class="col-sm-2">
@@ -80,6 +80,7 @@ Sign-in / Sign-out Record
                         <th class="center">Login Time</th>
                         <th class="center">Logout Time</th>
                         <th class="center">Duration</th>
+                        <th class="center">Actions</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

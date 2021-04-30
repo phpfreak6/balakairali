@@ -58,12 +58,33 @@ class SignController extends Controller {
                                 }
                                 return 'N/A';
                             })
+                            ->addColumn('actions', function($query) {
+                                if (empty($query->logout_time)) {
+                                    return '<button type="button" onclick="setStudentLogoutTime(\'' . $query->id . '\')" class="btn btn-sm btn-primary">Logout</a>';
+                                }
+                                return 'N/A';
+                            })
                             ->addIndexColumn()
+                            ->rawColumns(['actions'])
                             ->make(true);
         }
+        $dataArr['centre_value'] = $request->centre_value ?? '';
+        $dataArr['class_value'] = $request->class_value ?? '';
+        $dataArr['start_date'] = $request->start_date ?? '';
+        $dataArr['end_date'] = $request->end_date ?? '';
         $dataArr['centres'] = Centre::get();
         $dataArr['classes'] = Classes::get();
         return view('students/sign_in', $dataArr);
+    }
+
+    function setStudentLogoutTime(Request $request) {
+        $login_record_id = $request->login_record_id;
+        if (!empty(LoginRecord::where('id', '=', $login_record_id)->update(['logout_time' => Carbon::now()]))) {
+            echo '1';
+            die;
+        }
+        echo '0';
+        die;
     }
 
     public function signinSignout() {

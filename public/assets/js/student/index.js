@@ -1,3 +1,20 @@
+
+function setStudentLogoutTime(login_record_id) {
+    bootbox.confirm("Are you sure you want to logout this student?", function (result) {
+        if (result) {
+            $.post(URL + "/admin/sign-records/setStudentLogoutTime", {'_token': _TOKEN, login_record_id: login_record_id}, function (data, status) {
+                if (data == '1') {
+                    flashToastSuccess('Student Logged Out Successfully');
+                    $('#login_datatable').DataTable().ajax.reload();
+                } else {
+                    flashToastError('Student Logging Out Failed');
+                }
+            });
+        }
+    });
+}
+
+
 $(document).ready(function () {
     var table = $('#students_datatable').DataTable({
         processing: true,
@@ -52,13 +69,9 @@ $(document).ready(function () {
             {'className': 'text-center', data: 'class_name'},
             {'className': 'text-center', data: 'login_time'},
             {'className': 'text-center', data: 'logout_time'},
-            {'className': 'text-center', data: 'duration'}
+            {'className': 'text-center', data: 'duration'},
+            {'className': 'text-center', data: 'actions'}
         ]
-    });
-
-    $(document).on('submit', '#signin_form', function (e) {
-        e.preventDefault();
-        table1.draw();
     });
 
     $(document).on('click', '#student_filter_btn', function (e) {
@@ -66,30 +79,13 @@ $(document).ready(function () {
         table.draw();
     });
 
-    $(document).on('change', '#filter_by_centre', function (e) {
-        blockScreen();
-        $.ajax({
-            type: 'GET',
-            url: URL + "/admin/load_classes",
-            data: {centre: $('#filter_by_centre').val(), class: $('#filter_by_class').val()},
-            success: function (data) {
-                unblockScreen();
-                if (data == false) {
-                    return false;
-                }
-                $('.classes_append').html(data);
-            },
-        });
-    });
 });
-
 $(document).on('click', 'tbody .markaspaid', function () {
     var row = $('#students_datatable').DataTable().row($(this).closest('tr')).data();
     $('#markPaidLabel').text('Payment for ' + row.first_name);
     $('#hidPayStdId').val(row.id);
     $('#markPaidModal').modal('show');
 });
-
 function paid(id) {
     $.ajax({
         type: 'POST',
@@ -112,7 +108,6 @@ function paid(id) {
 $(document).on('click', '.termChkbox', function () {
     $('.termChkbox').not(this).prop('checked', false);
 });
-
 $('#markPaidFormm').on('submit', function (e) {
     e.preventDefault();
     blockScreen();
