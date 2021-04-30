@@ -15,7 +15,7 @@ Sign-in / Sign-out Record
                         <div class="row">
                             <div class="col-sm-5">
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label no-padding-right" for="name"> Select Centre : </label>
+                                    <label class="col-sm-5 control-label no-padding-right text-right" for="name"> Select Centre : </label>
                                     <div class="col-sm-7">
                                         <select class="form-control" id="filter_by_centre" name="centre_value">
                                             <option value="" selected="">Select Centre</option>
@@ -28,7 +28,7 @@ Sign-in / Sign-out Record
                             </div>
                             <div class="col-sm-5">
                                 <div class="form-group">
-                                    <label class="col-sm-5 control-label no-padding-right" for="address"> Select Class : </label>
+                                    <label class="col-sm-5 control-label no-padding-right text-right" for="address"> Select Class : </label>
                                     <div class="col-sm-7">
                                         <div class="classes_append">  
                                             <select class="form-control" id="filter_by_class" name="class_value" >
@@ -46,15 +46,15 @@ Sign-in / Sign-out Record
                         </div>
                         <div class="row" style="margin-top: 5px;">
                             <div class="col-sm-5">
-                                <label class="col-sm-5 control-label no-padding-right" for="start_date"> Start Date : </label>
+                                <label class="col-sm-5 control-label no-padding-right text-right" for="start_date"> Start Date : </label>
                                 <div class="col-sm-7">
-                                    <input value="<?= $start_date ?>" type="text" name="start_date" id="start_date" class="datepicker1" placeholder="Start Date">
+                                    <input value="<?= $start_date ?>" type="text" name="start_date" id="start_date" class="form-control datepicker1" placeholder="Start Date">
                                 </div>
                             </div>
                             <div class="col-sm-5">
-                                <label class="col-sm-5 control-label no-padding-right" for="end_date"> End Date : </label>
+                                <label class="col-sm-5 control-label no-padding-right text-right" for="end_date"> End Date : </label>
                                 <div class="col-sm-7">
-                                    <input value="<?= $end_date ?>" type="text" name="end_date" id="end_date" class="datepicker1" placeholder="End Date">
+                                    <input value="<?= $end_date ?>" type="text" name="end_date" id="end_date" class="form-control datepicker1" placeholder="End Date">
                                 </div>
                             </div>
                             <div class="col-sm-2">
