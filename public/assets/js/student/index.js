@@ -46,6 +46,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         dom: 'Bfrtip',
+        "order": [[0, "desc"]],
         buttons: [{
                 "extend": "csv",
                 "text": "<i class='fa fa-database bigger-110 orange'></i> <span class=''>Export</span>",
