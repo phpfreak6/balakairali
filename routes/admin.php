@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     Route::post('student/change/status', [StudentsController::class, 'accountStatus'])->name('student.accountStatus');
     Route::post('student/marks-store', [StudentsController::class, 'studentMarks'])->name('student.storeMarks');
     Route::post('student/progress-report/{id}', [StudentsController::class, 'studentProgress'])->name('student.studentProgress');
+    Route::get('student/sign-in-student/{student_id}', [StudentsController::class, 'signInStudent']);
     Route::get('load_classes_create', [StudentsController::class, 'loadClasses']);
     Route::get('login-kids', [StudentsController::class, 'studentSigninSignout'])->name('studentSignin');
 
