@@ -45,7 +45,7 @@ class AttendanceController extends Controller {
             $attendance->attendance_by = auth()->user()->id;
             $attendance->save();
         } else {
-            Attendance::where('user_id', $request->student)->whereDate('attendance_date', $request->date)->delete();
+            Attendance::where('user_id', $request->student)->whereDate('attendance_date', date('Y-m-d', strtotime($request->date)))->delete();
         }
         return true;
     }

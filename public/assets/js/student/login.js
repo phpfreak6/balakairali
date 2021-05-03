@@ -1,3 +1,7 @@
+
+// Virender 
+
+
 $(document).ready(function () {
     var baseUrl = $('meta[name="base-url"]').attr('content');
 //    $('#parentMobile').on('click', function (e) {
@@ -92,26 +96,27 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.status == 'logged-out') {
                     toastr.options = {"closeButton": true, "positionClass": "toast-top-center", "timeOut": 3000};
-                    toastr.success('Student signed out successfully');
+                    toastr.success('Student Signed Out Successfully');
                     $('.login_status' + response.id).html('Signed-out - ');
                 }
                 if (response.status == 'inactive') {
                     toastr.options = {"closeButton": true, "positionClass": "toast-top-center"};
-                    toastr.warning('Selected student account is inactive. Please contact with centre.');
+                    toastr.warning('Selected Student Account Is Inactive. Please Contact With Centre.');
                     return false;
 
                 }
                 if (response.status == 'logout') {
                     toastr.options = {"closeButton": true, "positionClass": "toast-top-center"};
-                    toastr.warning('Selected student accounts are logged out already or not logged in for today !');
+                    toastr.warning('Selected Student Accounts Are Logged Out Already Or Not Logged In For Today!');
                     return false;
                 }
                 if (response.logout == true) {
+                    $('#logoutform').append('<input type="hidden" name="flash_message" value="Signing Process Completed Successfully">');
                     $('#logoutform').submit();
                 }
                 if (response.text == 'Sign-out') {
                     toastr.options = {"closeButton": true, "positionClass": "toast-top-center", "timeOut": 3000};
-                    toastr.success('Student signed-in successfully');
+                    toastr.success('Student Signed In Successfully');
                     $('.login_status' + response.id).html('Signed-in - ');
                 } else {
                     $('.login_status' + response.id).html('Signed-in - ');
@@ -123,9 +128,12 @@ $(document).ready(function () {
             },
         });
     });
+
     $(document).on('click', '.logout_btn', function () {
+        $('#logoutform').append('<input type="hidden" name="flash_message" value="Logged Out Successfully">');
         $('#logoutform').submit();
     });
+
     $('.search-kids').on('click', function (e) {
         var $parent = $('#parent_number').val();
         $.ajax({

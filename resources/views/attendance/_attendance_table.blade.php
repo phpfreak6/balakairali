@@ -2,7 +2,7 @@
     <table id="mark_datatable1" class="table table-striped table-bordered table-hover table-responsive">
         <thead>
             <tr>
-                <th class="center">ID</th>
+                <th class="center">Student ID</th>
                 <th class="center">Name</th>
                 <th class="center">Father/Mother</th>
                 <th class="center">Mobile</th>
@@ -15,7 +15,7 @@
             @php $c = 1; @endphp
             @forelse($users as $user) 
             <tr>
-                <th class="text-center" scope="row">{{ $c }}</th>
+                <th class="text-center" scope="row">{{ $user->id }}</th>
                 <td class="text-center">{{ $user->name }}</td>
                 <td class="text-center">
                     @if($user->student->p1_type == 'father')

@@ -34,7 +34,7 @@ function deleteTeacher(teacher_id) {
         if (result) {
             $.post(URL + "/admin/teachers/deleteTeacher", {'_token': _TOKEN, id: teacher_id}, function (data, status) {
                 if (data == '1') {
-                    flashToastSuccess('Leave Record Deleted Successfully');
+                    flashToastSuccess('Teacher Deleted Successfully');
                     $('#by_centre_btn').trigger('click');
                 } else {
                     flashToastError('Teacher Deletion Failed');

@@ -22,8 +22,12 @@ Attendance Report
                                 <div class="form-group">
                                     <select id="year" class="form-control input-sm year" name="year" style="margin-top: 6px;" required="">
                                         <option value="" selected="">Select Year</option>
+                                        <option value="2019">2019</option>
                                         <option value="2020">2020</option>
                                         <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
                                     </select>
                                 </div>    
                             </div> 
@@ -32,7 +36,7 @@ Attendance Report
                                     <select id="term" class="form-control input-sm term" name="term" style="margin-top: 6px;" required="">
                                         <option value="">Select Term</option>
                                         @foreach($quarters as $quarter)
-                                        <option value="{{ $quarter->id }}">{{ $quarter->name }}</option>
+                                        <option value="{{ $quarter->id }}">{{ $quarter->id }}</option>
                                         @endforeach  
                                     </select>  
                                 </div>  

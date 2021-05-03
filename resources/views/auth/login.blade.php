@@ -255,7 +255,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
                         return false;
                     }
                     if (response.logout == true) {
-                        $('#logoutform').submit();
+//                        $('#logoutform').submit();
                     }
                     if (response.text == 'Sign-out') {
                         toastr.options = {
@@ -276,6 +276,7 @@ if (!isset($_SERVER['PHP_AUTH_USER']) || ($_SERVER['PHP_AUTH_USER'] != $auth['se
             });
         });
         $(document).on('click', '.logout_btn', function () {
+            $('#logoutform').append('<input type="hidden" name="flash_message" value="Logged Out Successfully">');
             $('#logoutform').submit();
         });
         $('.search-kids').on('click', function (e) {

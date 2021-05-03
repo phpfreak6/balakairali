@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StudentDetail extends Model
-{
+class StudentDetail extends Model {
+
     use HasFactory;
 
     protected $fillable = [
@@ -33,33 +33,28 @@ class StudentDetail extends Model
     ];
     protected $casts = [
         //'parent_details'  =>  'array',
-        'assigned_kids'   =>  'array'
+        'assigned_kids' => 'array'
     ];
 
-    public function studentclasses()
-    {
-       return $this->hasOne(Classes::class, 'id','classes');
+    public function studentclasses() {
+        return $this->hasOne(Classes::class, 'id', 'classes');
     }
 
-    public function centres()
-    {
-       return $this->hasOne(Centre::class,'id','centre');
+    public function centres() {
+        return $this->hasOne(Centre::class, 'id', 'centre');
     }
 
-    public function user()
-    {
-       return $this->belongsTo(User::class);
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 
-    public static function checkAssigned($number){
+    public static function checkAssigned($number) {
 
-        $students = StudentDetail::where('p1_mobile' ,$number)->pluck('user_id')->all();
-        $implode = implode(",",$students);
-        $allcheck = StudentDetail::where('assigned_kids',$implode)->first();
+        $students = StudentDetail::where('p1_mobile', $number)->pluck('user_id')->all();
+        $implode = implode(",", $students);
+        $allcheck = StudentDetail::where('assigned_kids', $implode)->first();
 
         return $allcheck;
-
     }
-
 
 }

@@ -32,12 +32,12 @@
                 Manage Students
             </a>
         </li>
-        <li class="{{ (request()->is('admin/signin-signout-kids') || request()->is('admin/signin-signout-kids/*')) ? 'active' : '' }}">
-            <a href="{{ route('admin.signinSignoutKids') }}">
-                <i class="menu-icon fa fa-exchange"></i>
-                Sign-in/Sign-out Kids
-            </a>
-        </li>
+        <!--        <li class="{{ (request()->is('admin/signin-signout-kids') || request()->is('admin/signin-signout-kids/*')) ? 'active' : '' }}">
+                    <a href="{{ route('admin.signinSignoutKids') }}">
+                        <i class="menu-icon fa fa-exchange"></i>
+                        Sign-in/Sign-out Kids
+                    </a>
+                </li>-->
         <li class="{{ (request()->is('admin/sign-records/index') || request()->is('admin/sign-reports/*')) ? 'active' : '' }}">
             <a href="{{ route('admin.signinSignout') }}">
                 <i class="menu-icon fa fa-info-circle"></i>
