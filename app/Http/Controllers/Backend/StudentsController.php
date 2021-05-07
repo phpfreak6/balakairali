@@ -73,7 +73,7 @@ class StudentsController extends Controller {
                                 if (User::hasPermission('editing_teacher')) {
                                     return '<button  class="btn btn-sm btn-success markaspaid" data-id="' . $user->id . '">Mark Paid</button> '
                                             . '<a  class="btn btn-sm btn-primary" href="student/assign/' . $user->student->p1_mobile . '">Assign</a> '
-                                            . '<a  class="btn btn-sm btn-warning" href="student/sign-in-student/' . $user->id . '" onclick="return confirm(\'Are you sure you want to sign in this student?\')">Sign In</a> '
+                                            . '<button type="button"  class="btn btn-sm btn-warning" onclick="showStudentSignInModal(' . $user->id . ')">Sign In</button> '
                                             . '<a  class="btn btn-sm btn-primary" href="student/edit/' . $user->id . '"><i class="fa fa-edit"></i></a> '
                                             . '<a  class="btn btn-sm btn-primary" href="student/show/' . $user->id . '"><i class="glyphicon glyphicon-eye-open" title="View"></i></a> '
                                             . '<a  onclick="return confirm(\'Are you sure you want to delete this student?\')" class="btn btn-sm btn-danger" href="student/delete/' . $user->id . '"><i class="fa fa-trash" title="Delete"></i></a>';
@@ -271,25 +271,28 @@ class StudentsController extends Controller {
         return response()->json(['status' => true, 'message' => $message, 'btn_text' => $btn_text, 'html' => $html, 'user_id' => $request->student_id]);
     }
 
-    function signInStudent($student_id) {
+    function signInStudent(Request $request) {
+        $student_id = $request->student_id;
+        $login_time = $request->login_time;
         $studentDetailObj = StudentDetail::where('user_id', $student_id)->first();
-        $loginRecordArr = LoginRecord::where('user_id', $student_id)
-                ->whereDate('created_at', date('Y-m-d'))
-                ->first();
+        $loginRecordArr = LoginRecord::where('user_id', $student_id)->whereDate('login_time', Carbon::parse($login_time)->format('Y-m-d'))->first();
         if (!empty($loginRecordArr->login_time)) {
-            return redirect()
-                            ->back()
-                            ->with('error', "Student Already Logged In For Today at " . $loginRecordArr->login_time);
+            return redirect()->back()->with('error', "Student already logged in for the given date.");
         } else {
             LoginRecord::insert([
                 'user_id' => $student_id,
                 'parent_mobile' => $studentDetailObj->p1_mobile,
-                'login_time' => Carbon::now(),
+                'login_time' => $login_time,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now()
             ]);
-            return redirect()->back()->with('success', "Student Marked As Logged In Successfully For Today");
+            return redirect()->back()->with('success', "Student marked as logged in for the given date");
         }
+    }
+
+    function showStudentSignInModal(Request $request) {
+        $dataArr['studentObj'] = User::whereRole(User::STUDENT)->where('id', '=', $request->student_id)->first();
+        return view('students/modals/StudentSignInModal', $dataArr);
     }
 
 }

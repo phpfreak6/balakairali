@@ -33,7 +33,7 @@ class SignController extends Controller {
             $resultArr = $query->get();
             return DataTables::of($resultArr)
                             ->addColumn('date', function ($query) {
-                                return date('d-m-Y', strtotime($query->created_at));
+                                return date('d-m-Y', strtotime($query->login_time));
                             })
                             ->addColumn('login_time', function ($query) {
                                 if (!empty($query->login_time)) {

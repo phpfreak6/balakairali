@@ -1,4 +1,19 @@
 
+
+function showStudentSignInModal(student_id) {
+    $.ajax({
+        url: URL + "/admin/students/showStudentSignInModal",
+        type: "POST",
+        data: {_token: _TOKEN, student_id: student_id},
+        success: function (data) {
+            $('#common_modal_body').html(data);
+            $('#common_modal_header').html('Sign In Student');
+            $('#common_modal').modal({backdrop: 'static', keyboard: false});
+        }
+    });
+}
+
+
 function setStudentLogoutTime(login_record_id) {
     bootbox.confirm("Are you sure you want to logout this student?", function (result) {
         if (result) {
