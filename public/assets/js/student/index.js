@@ -1,5 +1,3 @@
-
-
 function showStudentSignInModal(student_id) {
     $.ajax({
         url: URL + "/admin/students/showStudentSignInModal",
@@ -13,22 +11,18 @@ function showStudentSignInModal(student_id) {
     });
 }
 
-
-function setStudentLogoutTime(login_record_id) {
-    bootbox.confirm("Are you sure you want to logout this student?", function (result) {
-        if (result) {
-            $.post(URL + "/admin/sign-records/setStudentLogoutTime", {'_token': _TOKEN, login_record_id: login_record_id}, function (data, status) {
-                if (data == '1') {
-                    flashToastSuccess('Student Logged Out Successfully');
-                    $('#login_datatable').DataTable().ajax.reload();
-                } else {
-                    flashToastError('Student Logging Out Failed');
-                }
-            });
+function showStudentSignOutModal(id) {
+    $.ajax({
+        url: URL + "/admin/students/showStudentSignOutModal",
+        type: "POST",
+        data: {_token: _TOKEN, id: id},
+        success: function (data) {
+            $('#common_modal_body').html(data);
+            $('#common_modal_header').html('Sign Out Student');
+            $('#common_modal').modal({backdrop: 'static', keyboard: false});
         }
     });
 }
-
 
 $(document).ready(function () {
     var table = $('#students_datatable').DataTable({

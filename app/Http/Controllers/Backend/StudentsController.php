@@ -277,7 +277,7 @@ class StudentsController extends Controller {
         $studentDetailObj = StudentDetail::where('user_id', $student_id)->first();
         $loginRecordArr = LoginRecord::where('user_id', $student_id)->whereDate('login_time', Carbon::parse($login_time)->format('Y-m-d'))->first();
         if (!empty($loginRecordArr->login_time)) {
-            return redirect()->back()->with('error', "Student already logged in for the given date.");
+            return redirect()->back()->with('error', "Student already logged in for the given date");
         } else {
             LoginRecord::insert([
                 'user_id' => $student_id,
@@ -290,9 +290,22 @@ class StudentsController extends Controller {
         }
     }
 
+    function signOutStudent(Request $request) {
+        $login_record_id = $request->id;
+        if (!empty(LoginRecord::where('id', '=', $login_record_id)->update(['logout_time' => $request->logout_time]))) {
+            return redirect()->back()->with('success', "Student marked as logged out for the given date");
+        }
+        return redirect()->back()->with('error', "Student marking as logged out failed for the given date");
+    }
+
     function showStudentSignInModal(Request $request) {
         $dataArr['studentObj'] = User::whereRole(User::STUDENT)->where('id', '=', $request->student_id)->first();
         return view('students/modals/StudentSignInModal', $dataArr);
+    }
+
+    function showStudentSignOutModal(Request $request) {
+        $dataArr['record_id'] = $request->id;
+        return view('students/modals/StudentSignOutModal', $dataArr);
     }
 
 }

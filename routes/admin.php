@@ -46,6 +46,9 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     //Students
     Route::get('students', [StudentsController::class, 'index'])->name('students');
     Route::post('students/showStudentSignInModal', [StudentsController::class, 'showStudentSignInModal']);
+    Route::post('students/showStudentSignOutModal', [StudentsController::class, 'showStudentSignOutModal']);
+    Route::post('students/signInStudent', [StudentsController::class, 'signInStudent']);
+    Route::post('students/signOutStudent', [StudentsController::class, 'signOutStudent']);
     Route::post('students-list', [StudentsController::class, 'index'])->name('student-list');
     Route::get('students/create', [StudentsController::class, 'create'])->name('student.create');
     Route::post('students/store', [StudentsController::class, 'store'])->name('student.store');
@@ -57,7 +60,6 @@ Route::group(['middleware' => ['auth', 'role:admin|teacher'], 'prefix' => 'admin
     Route::post('student/change/status', [StudentsController::class, 'accountStatus'])->name('student.accountStatus');
     Route::post('student/marks-store', [StudentsController::class, 'studentMarks'])->name('student.storeMarks');
     Route::post('student/progress-report/{id}', [StudentsController::class, 'studentProgress'])->name('student.studentProgress');
-    Route::post('students/signInStudent', [StudentsController::class, 'signInStudent']);
     Route::get('load_classes_create', [StudentsController::class, 'loadClasses']);
     Route::get('login-kids', [StudentsController::class, 'studentSigninSignout'])->name('studentSignin');
 
