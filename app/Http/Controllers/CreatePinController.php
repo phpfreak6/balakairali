@@ -12,7 +12,6 @@ use DB;
 class CreatePinController extends Controller
 {
 
-
     public function createPin(Request $request)
     {
         $type = last(request()->segments());
@@ -21,29 +20,32 @@ class CreatePinController extends Controller
             return redirect()->back();
         }
         session()->put('type', $type);
-        return view('auth.pin.create_pin');
+        return view('auth/pin/create_pin');
     }
 
     public function sendOtp(Request $request)
     {
         $user = StudentDetail::where('p1_email', $request->email)->first();
         if (empty($user)) {
-            session()->flash('error', 'Email address not exist.');
+            session()->flash('error', 'Email address does not exist.');
             return redirect()->back();
         }
+
         DB::table('pin_reset')->where('email', $request->email)->delete();
+
         $otp = rand(100000, 999999);
         $email = $request->email;
         DB::table('pin_reset')->insert([
             'email' => $request->email,
-            'otp'   => $otp,
+            'otp' => $otp,
             'token' => Str::random(60)
         ]);
+
         $tokenData = DB::table('pin_reset')->where('email', $request->email)->first();
         Mail::send('emails.pin_otp', ['user' => $user, 'otp' => $otp], function ($message) use ($user, $email) {
-            $message->to($email, 'Parent')
-                ->subject('BK - One Time Password');
+            $message->to($email, 'Parent')->subject('Balakairali - One Time Password');
         });
+        session()->flash('success', 'OTP sent successfully. Please check your email.');
         return redirect()->route('confirmOtp', ['token' => $tokenData->token]);
     }
 
@@ -64,26 +66,28 @@ class CreatePinController extends Controller
     public function matchOtp(Request $request, $token)
     {
         $validated = $request->validate(['otp' => 'required']);
+
         $tokenData = DB::table('pin_reset')->where('token', $token)->first();
+
         if (!$tokenData) {
             session()->flash('error', 'Your token expired. Please try again.');
             return redirect('/create-pin');
         }
+
         if ($tokenData->otp != $request->otp) {
-            session()->flash('error', 'OTP is not matching.');
+            session()->flash('error', 'OTP is incorrect');
             return redirect()->back();
         }
-        $user = StudentDetail::where('user_id', auth()->user()->id)->first();
-        DB::table('pin_reset')->where('email', $user->p1_email)->update(['token' => Str::random(60)]);
-        $tokenData = DB::table('pin_reset')->where('email', $user->p1_email)->first();
-        return redirect('/reset-pin/' . $tokenData->token);
+        DB::table('pin_reset')->where('email', $tokenData->email)->update(['token' => Str::random(60)]);
+        $tokenData = DB::table('pin_reset')->where('email', $tokenData->email)->first();
+        return redirect('reset-pin/' . $tokenData->token);
     }
 
     public function resetPinForm($token)
     {
         $tokenData = DB::table('pin_reset')->where('token', $token)->first();
         if (!$tokenData) {
-            session()->flash('error', 'Yout token expired.');
+            session()->flash('error', 'Your token expired.');
             return redirect('/create-pin');
         }
         return view('auth.pin.reset_pin', compact('token'));
@@ -93,15 +97,12 @@ class CreatePinController extends Controller
     {
         $tokenData = DB::table('pin_reset')->where('token', $token)->first();
         if (!$tokenData) {
-            session()->flash('error', 'Yout token expired.');
-            return redirect('/create-pin');
+            return redirect('create-pin')->with('error', 'Your token is expired.');
         }
         $validated = $request->validate(['new_pin' => 'required|numeric|digits:4', 'confirm_pin' => 'required|same:new_pin']);
         $userids = StudentDetail::where('p1_email', $tokenData->email)->pluck('user_id')->all();
         User::whereIn('id', $userids)->update(['pin' => $request->new_pin]);
         DB::table('pin_reset')->where('token', $token)->delete();
-        session()->forget('key');
-        session()->flash('success', 'Pin successfully updated.');
-        return redirect('/');
+        return redirect('/')->with('success', 'Pin changed successfully');
     }
 }

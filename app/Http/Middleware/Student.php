@@ -7,21 +7,13 @@ use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
 use Auth;
 
-class Student
-{
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @return mixed
-     */
-    public function handle(Request $request, Closure $next)
-    {
+class Student {
+
+    public function handle(Request $request, Closure $next) {
         if (Auth::check() && Auth::user()->isStudent()) {
             return $next($request);
         }
-
         return redirect(RouteServiceProvider::HOME);
     }
+
 }

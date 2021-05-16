@@ -17,6 +17,7 @@
         <title>Balakairali</title>
         <script>
 var AUTHENTICATION_TOKEN = '<?= csrf_token() ?>';
+var BASE_URL = '<?= url('/') ?>';
         </script>
     </head>
     <body class="LoginPageBody">

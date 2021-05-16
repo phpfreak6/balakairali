@@ -35,7 +35,7 @@ class LoginController extends Controller {
                 return redirect(RouteServiceProvider::HOME);
             }
         } else {
-            session()->flash('error', 'credentials not mathing.');
+            session()->flash('error', 'Incorrect Credentials');
             return redirect()->back();
         }
     }

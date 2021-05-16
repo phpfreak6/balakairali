@@ -9,18 +9,18 @@ Sign-in / Sign-out Kids
 @section('content')
 <style>
     .widget-color-blue {
-    border-color: #dddddd !important;
-}
+        border-color: #dddddd !important;
+    }
 </style>
 
 <div class="row" style="border-bottom: 1px dotted #e2e2e2;padding-bottom: 16px; padding-top: 7px;">
-	<div class="col-md-1">
-	</div>
+    <div class="col-md-1">
+    </div>
     <div class="col-md-2">
-    	<label>Search Student/s : </label>
+        <label>Search Student/s : </label>
     </div>
     <div class="col-md-6" >
-    	<div class="input-group">
+        <div class="input-group">
 
             <input type="text" class="form-control" id="parent_number" placeholder="Enter parents number">
 
@@ -35,12 +35,12 @@ Sign-in / Sign-out Kids
 </div>
 <div class="row " id="append_kids_list_loader" style="margin-top: 10px">
 
-	<div class="col-md-6 col-md-offset-3 append_kids_list" >
+    <div class="col-md-6 col-md-offset-3 append_kids_list" >
 
 
 
-	</div>
-	
+    </div>
+
 </div>
 
 @endsection
