@@ -40,8 +40,6 @@ Route::group(['middleware' => ['student']], function () {
 
     Route::get('student-login-table', [StudentLoginController::class, 'studentLoginTable']);
 
-    Route::get('/signin-signout-student', [StudentLoginController::class, 'studentLogin'])->name('loginWithPin');
-
     Route::post('student-login', [StudentLoginController::class, 'login'])->name('slogin');
 });
 
