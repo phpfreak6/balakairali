@@ -30,7 +30,8 @@ class SignController extends Controller
             !empty($request->start_date) && !empty($request->end_date) ?
                 $query->whereBetween('login_records.created_at', [
                     date('Y-m-d', strtotime($request->start_date)),
-                    date('Y-m-d', strtotime('+1 day', strtotime($request->end_date)))
+                    date('Y-m-d', strtotime($request->end_date))
+                    // date('Y-m-d', strtotime('+1 day', strtotime($request->end_date)))
                 ]) : '';
             $resultArr = $query->get();
             return DataTables::of($resultArr)
