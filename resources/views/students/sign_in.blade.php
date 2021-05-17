@@ -30,18 +30,18 @@ Sign-in / Sign-out Record
                                 <div class="form-group">
                                     <label class="col-sm-5 control-label no-padding-right text-right" for="address"> Select Class : </label>
                                     <div class="col-sm-7">
-                                        <div class="classes_append">  
-                                            <select class="form-control" id="filter_by_class" name="class_value" >
+                                        <div class="classes_append">
+                                            <select class="form-control" id="filter_by_class" name="class_value">
                                                 <option value="" selected="">Select Class</option>
                                                 @foreach($classes as $class)
                                                 <option <?= $class_value == $class->id ? 'selected' : '' ?> value="{{ $class->id }}">
-                                                    {{ $class->name }}- <?= $class->centre->name ?>
+                                                    {{ $class->name }}
                                                 </option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
                         </div>
                         <div class="row" style="margin-top: 5px;">
@@ -96,4 +96,13 @@ Sign-in / Sign-out Record
 <script src="{{ asset('assets/theme/js/dataTables/dataTables.buttons.min.js') }}"></script>
 <script src="{{ asset('assets/theme/js/dataTables/buttons.html5.min.js') }}"></script>
 <script src="{{ asset('assets/js/student/index.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        $('#filter_by_centre').change(function() {
+            var centre = $('#filter_by_centre').val();
+            var redirect_url = URL + '/admin/sign-records/index?centre_value=' + centre;
+            window.location.replace(redirect_url);
+        });
+    });
+</script>
 @endsection

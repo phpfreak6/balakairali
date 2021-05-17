@@ -120,11 +120,16 @@ Manage Payments
         });
     }
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         getPaymentReportsDatatable();
+        $('#centre').change(function() {
+            var centre = $('#centre').val();
+            var redirect_url = URL + '/admin/payment-reports/index?centre=' + centre;
+            window.location.replace(redirect_url);
+        });
     });
 
-    $(document).on('submit', '#payment_form', function (e) {
+    $(document).on('submit', '#payment_form', function(e) {
         e.preventDefault();
         table.draw();
     });
