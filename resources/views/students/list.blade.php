@@ -6,33 +6,33 @@ Manage Students
 <div class="row">
     <div class="col-xs-12">
         <div class="table-header">
-            <div class="row">			    
-                <div class="col-sm-2">				
+            <div class="row">
+                <div class="col-sm-2">
                     @permission('editing_teacher')
                     <a href="{{ route('admin.student.create') }}" class="btn btn-success btn-sm"><i class="glyphicon-plus glyphicon"></i> Add</a>
-                    @endpermission				
-                </div>				
-                <div class="col-sm-2">					
-                    <select id="filter_by_centre" class="form-control input-sm year" name="centre" style="margin-top: 6px;" required="">					  
-                        <option value="" >Select Center</option>					 
-                        @foreach($centres as $centre)					    
-                        <option value="{{ $centre->id }}">{{ $centre->name }}</option>					  
-                        @endforeach  					
-                    </select>    				
-                </div> 				
-                <div class="col-sm-2 classes_append">					
-                    <select id="filter_by_class" class="form-control input-sm term" name="classe" style="margin-top: 6px;" required="">					  
-                        <option value="">Select Class</option>					
-                        @foreach($classes as $classe)					  
-                        <option value="{{ $classe->id }}">{{ $classe->name }}</option>				
-                        @endforeach  					
-                    </select>    				
+                    @endpermission
+                </div>
+                <div class="col-sm-2">
+                    <select id="filter_by_centre" class="form-control input-sm year" name="centre" style="margin-top: 6px;" required="">
+                        <option value="">Select Center</option>
+                        @foreach($centres as $centre)
+                        <option value="{{ $centre->id }}">{{ $centre->name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-sm-2 classes_append">
+                    <select id="filter_by_class" class="form-control input-sm term" name="classe" style="margin-top: 6px;" required="">
+                        <option value="">Select Class</option>
+                        @foreach($classes as $classe)
+                        <option value="{{ $classe->id }}">{{ $classe->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-sm-2">
                     <?= Form::select('status', ['' => 'By Status', '0' => 'Inactive', '1' => 'Active'], '', ['style' => 'margin-top: 6px;', 'class' => 'input-sm form-control', 'id' => 'status']) ?>
                 </div>
-                <div class="col-sm-2">                   
-                    <button class="btn btn-success btn-sm" id="student_filter_btn">Filter</button>                
+                <div class="col-sm-2">
+                    <button class="btn btn-success btn-sm" id="student_filter_btn">Filter</button>
                 </div>
             </div>
         </div>
@@ -43,7 +43,7 @@ Manage Students
                         <th class="center">ID</th>
                         <th class="center">Name</th>
                         <th class="center">Centre</th>
-                        <th class="center">Class</th>						                        
+                        <th class="center">Class</th>
                         <th class="center">Parent1 Name</th>
                         <th class="center">Parent1 Mobile</th>
                         <th class="center">Parent1 Email</th>
@@ -56,7 +56,7 @@ Manage Students
         </div>
     </div>
 </div>
-<div class="modal fade in" id="markPaidModal" tabindex="-1" role="dialog" >
+<div class="modal fade in" id="markPaidModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content ">
             <div class="modal-header panel-heading">
@@ -75,8 +75,8 @@ Manage Students
                                     <option value="2022">2022</option>
                                     <option value="2023">2023</option>
                                     <option value="2024">2024</option>
-                                    <option value="2025">2025</option>                                
-                                </select>       
+                                    <option value="2025">2025</option>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -94,7 +94,7 @@ Manage Students
                             <div class="col-md-12 text-center">
                                 <button type="submit" class="btn btn-lg btn-success">Mark Paid</button>
                             </div>
-                        </div>    
+                        </div>
                     </div>
                     <input type="hidden" name="hidPayStdId" id="hidPayStdId" value="">
                 </form>
@@ -108,4 +108,9 @@ Manage Students
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <?= getDatatableResources() ?>
 <script src="{{ asset('assets/js/student/index.js') }}"></script>
+<script>
+    $(document).ready(function() {
+        
+    });
+</script>
 @endsection
