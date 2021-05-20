@@ -19,7 +19,7 @@
                         <img class="nav-user-photo" src="<?= url('assets/theme/avatars/avatar5.png') ?>">
                         <span class="user-info">
                             <small>Welcome,</small>
-                            Admin
+                            <?= auth()->user()->first_name; ?>
                         </span>
                         <i class="ace-icon fa fa-caret-down"></i>
                     </a>
