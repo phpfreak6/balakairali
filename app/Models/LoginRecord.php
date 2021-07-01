@@ -25,6 +25,12 @@ class LoginRecord extends Model {
             return response()->json(['status' => 'logout', 'id' => $userid, 'text' => 'Sign-in']);
         }
         if ($record) {
+            $should_be_time = Carbon::parse($record->login_time)->addMinutes(15);
+            $current_time = Carbon::now();
+            $diff_in_minutes = $current_time->diffInMinutes($should_be_time);
+            if ($should_be_time > $current_time) {
+                return response(['status' => 'time-bounded', 'logout' => false, 'id' => $userid, 'text' => 'Sign-in', 'message' => "Please wait for $diff_in_minutes minutes to logout."]);
+            }
             $record->logout_time = Carbon::now();
             $record->save();
             return response()->json(['status' => 'logged-out', 'logout' => false, 'id' => $userid, 'text' => 'Sign-in']);

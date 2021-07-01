@@ -68,9 +68,14 @@
                         </div>
                         <div class="d-flex ResetNow">
                             @if(\App\Models\User::pinCreatedOrNot($parent_mobile_number) == false)
-                            <p>Don’t have a pin? <br><a href="{{ route('createPin') }}">Create one</a></p>
+                            <p>Don’t have a pin? <br>
+                                <a href="{{ route('createPin') }}">Create Pin</a>
+                            </p>
                             @endif
-                            <p class="ml-auto">Forgot pin? <br /><a href="{{ route('forgotPin') }}">Reset now</a></p>
+                            <div class="change_pin_wrp">
+                                <p><a href="<?= url("change-pin/$parent_mobile_number") ?>">Change Pin</a></p>
+                                <p><a href="{{ route('forgotPin') }}">Forgot pin?</a></p>
+                            </div>
                         </div>
                         <div class="d-flex align-items-center">
                             <button type="submit" id="pinLogin" class="btn GreyBtn">Find Student/s</button>
@@ -84,6 +89,12 @@
     </div>
 </section>
 <style>
+    .change_pin_wrp {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 20px;
+    }
     .login-color {
         color: green;
     }

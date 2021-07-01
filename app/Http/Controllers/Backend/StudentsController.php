@@ -195,6 +195,19 @@ class StudentsController extends Controller {
         if (User::hasPermission('accessing_teacher')) {
             return abort('403', 'You cannot access this route.');
         }
+        if ($request->mPaidTerm == 'full_year') {
+            $quartersObj = Quarter::all();
+            foreach ($quartersObj as $quarterObj) {
+                $result = Fee::where('user_id', $request->hidPayStdId)
+                        ->where('pay_year', $request->mPaidYear)
+                        ->where('pay_term', $quarterObj->id)
+                        ->first();
+                if (!$result) {
+                    Fee::insert(['user_id' => $request->hidPayStdId, 'pay_year' => $request->mPaidYear, 'pay_term' => $quarterObj->id]);
+                }
+            }
+            return true;
+        }
         $paid = Fee::where('user_id', $request->hidPayStdId)->where('pay_year', $request->mPaidYear)->where('pay_term', $request->mPaidTerm)->first();
         if (!empty($paid)) {
             return response()->json(['status' => 'paid', 'msg' => 'Payment entry for student ID ' . $request->hidPayStdId . ' is already made for ' . $paid->pay_year . ' and ' . $paid->quarter->name . ' term.']);

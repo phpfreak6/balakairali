@@ -86,7 +86,7 @@ Manage Students
                                     @foreach($quarters as $quarter)
                                     <label class="checkbox-inline"><input type="checkbox" name="mPaidTerm" class="termChkbox" value="{{ $quarter->id }}"> {{ $quarter->name }}</label>
                                     @endforeach
-
+                                    <label class="checkbox-inline"><input type="checkbox" name="mPaidTerm" class="termChkbox" value="full_year"> Full Year</label>
                                 </div>
                             </div>
                         </div>
@@ -108,9 +108,4 @@ Manage Students
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.js"></script>
 <?= getDatatableResources() ?>
 <script src="{{ asset('assets/js/student/index.js') }}"></script>
-<script>
-    $(document).ready(function() {
-        
-    });
-</script>
 @endsection

@@ -18,6 +18,9 @@ Route::get('auto-logout', [StudentLoginController::class, 'autologout'])->name('
 Route::post('validatePhoneNumber', [StudentLoginController::class, 'validatePhoneNumber']);
 
 Route::get('pin/{parent_mobile_number}', [StudentLoginController::class, 'pin']);
+
+Route::get('change-pin/{parent_mobile_number}', [StudentLoginController::class, 'changePin']);
+
 Route::post('attemptParentLogin', [StudentLoginController::class, 'attemptParentLogin']);
 
 Route::get('forgot-pin', [CreatePinController::class, 'createPin'])->name('forgotPin');

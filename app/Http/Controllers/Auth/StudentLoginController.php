@@ -12,37 +12,30 @@ use App\Models\Holiday;
 use App\Models\Setting;
 use App\Models\User;
 
-class StudentLoginController extends Controller
-{
+class StudentLoginController extends Controller {
 
-    public function __construct()
-    {
+    public function __construct() {
         $this->middleware('guest')->except('logout', 'login', 'autologout', 'studentLoginTable');
     }
 
-    public function index()
-    {
+    public function index() {
         $auth = Setting::select('settings')->where('name', 'portal_login')->first();
         return view('auth.login', compact('auth'));
     }
 
-
-    public function login(Request $request)
-    {
+    public function login(Request $request) {
         $userid = Crypt::decryptString($request->crypt_data);
         $res = LoginRecord::loginLogoutResponse($userid);
         return $res;
     }
 
-    public function autologout()
-    {
+    public function autologout() {
         $user = auth()->user();
         Auth::loginUsingId($user->id);
         return redirect('/');
     }
 
-    function validatePhoneNumber(Request $request)
-    {
+    function validatePhoneNumber(Request $request) {
         if (Setting::checkClassTime($request->current_desktop_timestamp) == 'time') {
             return redirect()->back()->with('error', 'You cannot login at this time.');
         }
@@ -58,14 +51,12 @@ class StudentLoginController extends Controller
         return redirect()->back()->with('error', 'Entered mobile number is not associated with any student.');
     }
 
-    function pin($parent_mobile_number)
-    {
+    function pin($parent_mobile_number) {
         $dataArr['parent_mobile_number'] = $parent_mobile_number;
         return view('auth/pin/pin', $dataArr);
     }
 
-    function attemptParentLogin(Request $request)
-    {
+    function attemptParentLogin(Request $request) {
         $idsArr = StudentDetail::where('p1_mobile', $request->phone_number)->pluck('user_id')->all();
         $assignedArr = StudentDetail::where('p1_mobile', $request->phone_number)->pluck('assigned_kids')->first();
         if (!empty($assignedArr)) {
@@ -79,8 +70,7 @@ class StudentLoginController extends Controller
         return redirect()->back()->with('error', 'Incorrect pin or pin not generated');
     }
 
-    function studentLoginTable()
-    {
+    function studentLoginTable() {
         $ids = StudentDetail::where('p1_mobile', Auth::user()->student->p1_mobile)->pluck('user_id')->all();
         $assigned = StudentDetail::where('p1_mobile', auth()->user()->student->p1_mobile)->pluck('assigned_kids')->first();
         if (!empty($assigned)) {
@@ -89,4 +79,9 @@ class StudentLoginController extends Controller
         $dataArr['students'] = User::whereIn('id', $ids)->get();
         return view('students/student_login_table', $dataArr);
     }
+
+    function changePin($phone_number) {
+        pr($phone_number);
+    }
+
 }

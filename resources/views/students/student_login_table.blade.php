@@ -25,6 +25,9 @@
                             @endif
                         </div>
                     </div>
+                    <div class="sub_form_btn">
+                        <button class="btn btn-default submit_btn_btn">Submit</button>
+                    </div>
                 </div>
             </div>
             @include('partials.footer')
@@ -48,6 +51,20 @@
     .list-group-item{
         margin-bottom:10px;
     }
+    .sub_form_btn button {
+        background: linear-gradient(45deg, #ea951c, #d73b32);
+        border: none;
+        color: #fff;
+        transition: 0.3s ease-in-out;
+        display: block;
+        margin: 0 auto;
+    }
+    .sub_form_btn button:hover{
+        background: linear-gradient(45deg, #d73b32, #ea951c);
+    }
+    .sub_form_btn button:focus{
+        box-shadow:none !important;
+    }
 </style>
 @endsection
 @section('scripts')
@@ -61,6 +78,11 @@
                 url: BASE_URL + '/student-login',
                 data: {_token: AUTHENTICATION_TOKEN, 'crypt_data': crypt_data},
                 success: function (response) {
+                    if (response.status == 'time-bounded') {
+                        toastr.options = {"closeButton": true};
+                        toastr.warning(response.message);
+                        return false;
+                    }
                     if (response.status == 'logged-out') {
                         toastr.options = {"closeButton": true};
                         toastr.success('Student Signed Out Successfully');
@@ -85,8 +107,14 @@
                 },
             });
         });
+
         $(document).on('click', '.logout_btn', function () {
             $('#logoutform').append('<input type="hidden" name="flash_message" value="Logged Out Successfully">');
+            $('#logoutform').submit();
+        });
+
+        $(document).on('click', '.submit_btn_btn', function () {
+            $('#logoutform').append('<input type="hidden" name="flash_message" value="Success">');
             $('#logoutform').submit();
         });
     });
