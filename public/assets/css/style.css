@@ -152,11 +152,19 @@ html, body.LoginPageBody{ height:100%;}
 
 .student_btn{
     cursor: pointer;
-    background-color: #ec9c1b;
-    padding: 5px;
-    border-radius: 2px;
+    background: linear-gradient(45deg, #ea951c, #d73b32);
+    padding: 7px;
+    border-radius: 5px;
     color: #fff;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
 }
+
+.student_btn:hover{
+    background:linear-gradient(45deg, #d73b32, #ea951c);
+}
+
 
 @media (max-height: 650px) {
     .PoweredBy {

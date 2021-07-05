@@ -81,7 +81,8 @@ class StudentLoginController extends Controller {
     }
 
     function changePin($phone_number) {
-        pr($phone_number);
+        $dataArr['parent_mobile_number'] = $phone_number;
+        return view('auth/pin/change-pin', $dataArr);
     }
 
 }
