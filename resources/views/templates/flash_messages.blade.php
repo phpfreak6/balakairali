@@ -22,3 +22,14 @@
     <strong>{{ $message }}</strong>
 </div>
 @endif
+
+
+@if($errors->any())
+@foreach($errors->getMessages() as $this_error)
+<script>
+    toastr.options = {"closeButton": true, "timeOut": "0", "extendedTimeOut": "0"};
+    toastr.error('<?= $this_error[0] ?>');
+</script>
+@endforeach
+@endif 
+

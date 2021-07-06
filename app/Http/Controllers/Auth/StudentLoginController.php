@@ -80,7 +80,21 @@ class StudentLoginController extends Controller {
         return view('students/student_login_table', $dataArr);
     }
 
-    function changePin($phone_number) {
+    function changePin($phone_number, Request $request) {
+        if ($request->isMethod('post')) {
+            $dataArr = $request->validate(['phone_number' => ['required'], 'current_pin' => ['required'], 'new_pin' => ['required', 'confirmed']]);
+            $studentDetailObj = StudentDetail::where('p1_mobile', $request->phone_number)->first();
+            if (!empty($studentDetailObj->id)) {
+                $userObj = User::where([['id', '=', $studentDetailObj->user_id], ['pin', '=', $dataArr['current_pin']]])->first();
+                if (!empty($userObj->id)) {
+                    $userObj->pin = $dataArr['new_pin'];
+                    $userObj->save();
+                    return redirect('pin/' . $dataArr['phone_number'])->with('success', 'Pin Changed Successfully. Please login with the new credentials');
+                }
+                return redirect()->back()->with('error', 'Current Pin Not Matched');
+            }
+            return redirect()->back()->with('error', 'No student found associated with this phone number');
+        }
         $dataArr['parent_mobile_number'] = $phone_number;
         return view('auth/pin/change-pin', $dataArr);
     }

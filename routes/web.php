@@ -19,7 +19,7 @@ Route::post('validatePhoneNumber', [StudentLoginController::class, 'validatePhon
 
 Route::get('pin/{parent_mobile_number}', [StudentLoginController::class, 'pin']);
 
-Route::get('change-pin/{parent_mobile_number}', [StudentLoginController::class, 'changePin']);
+Route::match(['get', 'post'], 'change-pin/{parent_mobile_number}', [StudentLoginController::class, 'changePin']);
 
 Route::post('attemptParentLogin', [StudentLoginController::class, 'attemptParentLogin']);
 

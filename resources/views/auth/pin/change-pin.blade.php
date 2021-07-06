@@ -8,7 +8,7 @@
                     <img src="{{ asset('assets/images/front/Logo.png') }}" alt="" />
                 </div>
                 <div class="FormDiv">
-                    <?= Form::open(['url' => url('/change-pin'), 'method' => 'POST']) ?>
+                    <?= Form::open(['url' => url('/change-pin/' . $parent_mobile_number), 'method' => 'POST', 'id' => 'change_pin_form']) ?>
                     <div class="InputDivWrap studentLogin ">
                         <div class="input_show_hide">
                             <div class="InputDiv">
@@ -21,7 +21,7 @@
                         <div class="input_show_hide">
                             <div class="InputDiv">
                                 <i><img src="{{ asset('assets/images/front/Number.svg') }}" alt="" /></i>
-                                <input autocomplete="off" type="password" class="form-control" name="pin" id="pin" placeholder="ENTER CURRENT PIN" required>
+                                <input autocomplete="off" type="password" class="form-control" name="current_pin" id="current_pin" placeholder="ENTER CURRENT PIN" required>
                             </div>
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                         <div class="input_show_hide">
                             <div class="InputDiv">
                                 <i><img src="{{ asset('assets/images/front/Number.svg') }}" alt="" /></i>
-                                <input autocomplete="off" type="password" class="form-control" name="pin" id="pin" placeholder="ENTER NEW PIN" required>
+                                <input autocomplete="off" type="password" class="form-control" name="new_pin" id="new_pin" placeholder="ENTER NEW PIN" required>
                             </div>
                         </div>
                     </div>
@@ -37,53 +37,13 @@
                         <div class="input_show_hide">
                             <div class="InputDiv">
                                 <i><img src="{{ asset('assets/images/front/Number.svg') }}" alt="" /></i>
-                                <input autocomplete="off" type="password" class="form-control" name="pin" id="pin" placeholder="CONFIRM NEW PIN" required>
+                                <input autocomplete="off" type="password" class="form-control" name="new_pin_confirmation" id="new_pin_confirmation" placeholder="CONFIRM NEW PIN" required>
                             </div>
                         </div>
                     </div>
                     <div class="keypad_div">
-                        <div class="Digit">
-                            <ul>
-                                <li>
-                                    <div class="DigitBox hover-overlay" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '1';">1</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '2';">2</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '3';">3</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '4';">4</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '5';">5</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '6';">6</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '7';">7</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '8';">8</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '9';">9</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value.slice(0, -1);">DEL</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('pin').value = document.getElementById('pin').value + '0';">0</div>
-                                </li>
-                                <li>
-                                    <div class="DigitBox" onclick="document.getElementById('number').value = ''">CLR</div>
-                                </li>
-                            </ul>
-                        </div>
                         <div class="d-flex align-items-center">
-                            <button type="submit" id="pinLogin" class="btn GreyBtn">Change Pin</button>
+                            <button type="submit" id="change_pin_button" class="btn GreyBtn">Change Pin</button>
                             &nbsp;&nbsp;&nbsp;
                             <a href="<?= url('login') ?>" class="btn btn-sm btn-danger back-login">Back to Login</a>
                         </div>
@@ -134,5 +94,36 @@
 </style>
 @endsection
 @section('scripts')
-<script src="{{ asset('assets/js/student/login.js') }}"></script>
+<script>
+//    $(document).ready(function () {
+//        $('#change_pin_form').validate({
+//            rules: {
+//                current_pin: {
+//                    required: true
+//                },
+//                new_pin: {
+//                    required: true
+//                },
+//                confirm_new_pin: {
+//                    required: true
+//                },
+//
+//            },
+//            messages: {
+//                current_pin: {
+//                    required: 'Please Enter Current Pin'
+//                },
+//                new_pin: {
+//                    required: 'Please Enter New Pin'
+//                },
+//                confirm_new_pin: {
+//                    required: 'Please Confirm New Pin'
+//                },
+//            },
+//            submit: function (form) {
+//                form.submit();
+//            }
+//        });
+//    });
+</script>
 @endsection
