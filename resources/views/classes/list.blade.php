@@ -38,9 +38,7 @@ Manage Classes
                         <th class="center">ID</th>
                         <th class="center">Class</th>
                         <th class="center">Center</th>
-                        <!--                <div  style="display: none;">
-                                            <th class="center">Actions</th>
-                                        </div>-->
+                        <th class="center">Actions</th>
                     </tr>
                 </thead>
                 <tbody></tbody>

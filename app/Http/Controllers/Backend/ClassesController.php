@@ -28,7 +28,7 @@ class ClassesController extends Controller {
                             })
                             ->addColumn('actions', function(ClassModel $class) {
                                 if (User::hasPermission('editing_teacher')) {
-                                    return '<a class="btn btn-sm btn-primary" href="class/edit/' . $class->id . '"><i class="fa fa-edit"></i></a> <a class="btn btn-sm btn-danger" href="class/delete/' . $class->id . '"><i class="fa fa-trash"></i></a>';
+                                    return '<a class="btn btn-sm btn-primary" href="class/edit/' . $class->id . '"><i class="fa fa-edit"></i></a> <a onclick="return confirm(\'Are you sure you want to delete this class?\')" class="btn btn-sm btn-danger" href="class/delete/' . $class->id . '"><i class="fa fa-trash"></i></a>';
                                 } else {
                                     return '';
                                 }

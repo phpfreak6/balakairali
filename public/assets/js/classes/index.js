@@ -13,10 +13,10 @@ $(document).ready(function () {
         columns: [
             {className: 'text-center', data: 'DT_RowIndex', orderable: false, sortable: false, searchable: false},
             {className: 'text-center', data: 'name'},
-            {className: 'text-center', data: 'centre_name'}
+            {className: 'text-center', data: 'centre_name'},
+            {className: 'text-center', data: 'actions'}
         ]
     });
-
     $(document).on('click', '#by_centre_btn', function (e) {
         e.preventDefault();
         table.draw();
