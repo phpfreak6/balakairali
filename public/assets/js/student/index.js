@@ -38,6 +38,13 @@ $(document).ready(function () {
                 d.status = $('#status').val();
             }
         },
+        dom: 'Bfrtip',
+        buttons: [
+            'copyHtml5',
+            'excelHtml5',
+            'csvHtml5',
+            'pdfHtml5'
+        ],
         columns: [
             {'className': 'text-center', data: 'DT_RowIndex', orderable: false, sortable: false, searchable: false},
             {'className': 'text-center', data: 'name'},
