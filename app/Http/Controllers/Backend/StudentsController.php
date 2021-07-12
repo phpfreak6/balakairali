@@ -24,6 +24,7 @@ class StudentsController extends Controller {
 
     function index(Request $request) {
         if ($request->ajax()) {
+
             $query = User::whereRole(User::STUDENT);
             if (in_array($request->status, [STATUS_INACTIVE, STATUS_ACTIVE])) {
                 $query->where('status', '=', $request->status);
@@ -58,7 +59,6 @@ class StudentsController extends Controller {
                             })
                             ->addColumn('p1_mobile', function (User $user) {
                                 return !empty($user->student->p1_mobile) ? $user->student->p1_mobile : '';
-                                return $user->student->p1_mobile;
                             })
                             ->addColumn('status', function (User $user) {
                                 if ($user->status == 1) {
@@ -68,7 +68,7 @@ class StudentsController extends Controller {
                                 }
                             })
                             ->addColumn('p1_email', function (User $user) {
-                                return $user->student->p1_email;
+                                return !empty($user->student->p1_email) ? $user->student->p1_email : '';
                             })
                             ->addColumn('actions', function(User $user) {
                                 if (User::hasPermission('editing_teacher')) {
