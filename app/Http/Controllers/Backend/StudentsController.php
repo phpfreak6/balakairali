@@ -48,15 +48,16 @@ class StudentsController extends Controller {
             }
             return DataTables::eloquent($query)
                             ->addColumn('classes', function (User $user) {
-                                return $user->student->studentclasses->name;
+                                return !empty($user->student->studentclasses->name) ? $user->student->studentclasses->name : '';
                             })
                             ->addColumn('centre', function (User $user) {
-                                return $user->student->centres->name;
+                                return !empty($user->student->centres->name) ? $user->student->centres->name : '';
                             })
                             ->addColumn('parent1', function (User $user) {
-                                return $user->student->p1_first_name . ' ' . $user->student->p1_last_name;
+                                return !empty($user->student->p1_first_name) ? $user->student->p1_first_name . ' ' . $user->student->p1_last_name : '';
                             })
                             ->addColumn('p1_mobile', function (User $user) {
+                                return !empty($user->student->p1_mobile) ? $user->student->p1_mobile : '';
                                 return $user->student->p1_mobile;
                             })
                             ->addColumn('status', function (User $user) {
